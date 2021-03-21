@@ -731,4 +731,16 @@
     <color name="ec_btn_login_email_on">#80ffffff</color>
     <color name="ec_btn_login_email_off">#ffffff</color>
     <color name="orange_dark">#ff5500</color>
+
+    <!-- add on more here-->
+    <color name="grey_10">#E6E6E6</color>
+    <color name="grey_20">#CCCCCC</color>
+    <color name="grey_30">#B3B3B3</color>
+    <color name="grey_40">#999999</color>
+    <color name="grey_50">#808080</color>
+    <color name="grey_60">#666666</color>
+    <color name="grey_70">#4D4D4D</color>
+    <color name="grey_80">#333333</color>
+    <color name="grey_90">#1A1A1A</color>
+
 </resources>

@@ -743,4 +743,15 @@
     <color name="grey_80">#333333</color>
     <color name="grey_90">#1A1A1A</color>
 
+    <color name="nushigh">#17A9A9</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="dark_grey">#FF212121</color>
+    <color name="dark_grey_lighter">#FF313131</color>
+    <color name="dark_blue_20_percent">#FF0F2B34</color>
+    <color name="dark_blue_10_percent">#FF101E23</color>
+
 </resources>

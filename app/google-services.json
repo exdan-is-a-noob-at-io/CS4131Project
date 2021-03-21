@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "445199794006",
+    "project_id": "praeclarum",
+    "storage_bucket": "praeclarum.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445199794006:android:0b7a38e764b43a1b33a0f7",
+        "android_client_info": {
+          "package_name": "com.example.cs4131projecteddenchew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445199794006-620heosqf4oluvi50q8l832i2gnkeuid.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEDWKAQhVXpFQKsx_ytrm2_vhjrqPJB5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445199794006-620heosqf4oluvi50q8l832i2gnkeuid.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

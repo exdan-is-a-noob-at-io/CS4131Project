@@ -26,12 +26,12 @@ class AES {
         }
     }
 
-    fun encrypt(strToEncrypt: String, secret: String): String? {
+    fun encrypt(strToEncrypt: String?, secret: String): String? {
         try {
             setKey(secret)
             val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
             cipher.init(Cipher.ENCRYPT_MODE, secretKey)
-            return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.toByteArray(charset("UTF-8"))))
+            return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt?.toByteArray(charset("UTF-8"))))
         } catch (e: Exception) {
             println("Error while encrypting: $e")
         }

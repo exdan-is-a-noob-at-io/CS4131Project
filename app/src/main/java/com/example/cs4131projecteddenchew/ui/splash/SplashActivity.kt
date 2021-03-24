@@ -20,29 +20,10 @@ import kotlin.collections.ArrayList
 class SplashActivity : AppCompatActivity() {
 
     private val SPLASH_TIME_OUT = 3000
-    private var user: User = User(-1, "", "", "", -1, , "", , "", ArrayList<String>())
+    private var user: User? = User(-1, "", "", "", -1, "", "", ArrayList<String>())
 
     var fileToUse: File = File(filesDir, "accountDeatils.txt")
 
-    var id: Long? = null
-    var profileSrc: String? = null
-    var name: String? = null
-    var bio: String? = null
-    var exp: Long? = null
-    var email: String? = null
-    var pw: String? = null
-    var friends: List<String>? = null
-
-    val data = hashMapOf(
-            "id" to id,
-            "profileSrc" to profileSrc,
-            "name" to name,
-            "bio" to bio,
-            "exp" to exp,
-            "email" to email,
-            "pw" to pw,
-            "friends" to friends
-    )
 
     //todo splash screen design
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,8 +50,12 @@ class SplashActivity : AppCompatActivity() {
             val database = FirebaseUtil.database
             database.child("users").child(id).get().addOnSuccessListener {
                 Log.i("firebase", "Got value ${it.value}")
-                //user = it.getValue(User.class)
+
+                user = it.getValue(User::class.java)
                 //todo return thing
+                if (user == null){
+                    user = User(-1, "", "", "", -1, "", "", ArrayList())
+                }
 
             }.addOnFailureListener{
                 Log.e("firebase", "Error getting data", it)

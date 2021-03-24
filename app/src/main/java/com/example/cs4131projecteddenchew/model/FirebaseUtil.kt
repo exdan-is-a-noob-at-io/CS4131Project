@@ -8,8 +8,8 @@ import com.google.firebase.storage.ktx.storage
 
 class FirebaseUtil {
     companion object Test {
-        private lateinit var database: DatabaseReference
-        private lateinit var storage: FirebaseStorage
+        lateinit var database: DatabaseReference
+        lateinit var storage: FirebaseStorage
     }
 
     init {

@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/admin_navigation"
-    app:startDestination="@id/fragmentOnboardingFour">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_navigation"
+    app:startDestination="@id/fragmentOnboardingFourLogin2">
     <fragment
-        android:id="@+id/fragmentOnboardingFour"
-        android:name="com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFour"
-        android:label="FragmentOnboardingFour" />
+        android:id="@+id/fragmentOnboardingFourSignUp2"
+        android:name="com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFourSignUp"
+        android:label="fragment_onboarding_four_sign_up"
+        tools:layout="@layout/fragment_onboarding_four_sign_up"
+        app:startDestination="@id/sign_up_to_login">
+        <action
+            android:id="@+id/sign_up_to_login"
+            app:destination="@id/fragmentOnboardingFourLogin2" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentOnboardingFourLogin2"
+        android:name="com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFourLogin"
+        android:label="fragment_onboarding_four_login"
+        tools:layout="@layout/fragment_onboarding_four_login" >
+        <action
+            android:id="@+id/login_to_sign_up"
+            app:destination="@id/fragmentOnboardingFourSignUp2" />
+    </fragment>
 </navigation>

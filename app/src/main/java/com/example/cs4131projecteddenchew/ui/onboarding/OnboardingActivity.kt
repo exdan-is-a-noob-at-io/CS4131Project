@@ -1,6 +1,7 @@
 package com.example.cs4131projecteddenchew.ui.onboarding
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
@@ -8,9 +9,11 @@ import androidx.viewpager.widget.ViewPager
 import com.example.cs4131projecteddenchew.R
 import com.google.android.material.tabs.TabLayout
 import androidx.fragment.app.FragmentManager
+import kotlinx.android.synthetic.main.activity_onboarding.*
 
 
 class OnboardingActivity : AppCompatActivity() {
+    lateinit var tabLayout: TabLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
@@ -33,9 +36,18 @@ class OnboardingActivity : AppCompatActivity() {
         viewPager.adapter = viewPagerAdapter
 
         // Setup dot's indicator
-        val tabLayout = findViewById<TabLayout>(R.id.tabLayoutIndicator)
+        tabLayout = findViewById<TabLayout>(R.id.tabLayoutIndicator)
         tabLayout.setupWithViewPager(viewPager)
     }
+
+    public fun showTabLayout(){
+        tabLayoutIndicator.setVisibility(View.VISIBLE)
+    }
+
+    public fun removeTabLayout(){
+        tabLayoutIndicator.setVisibility(View.GONE)
+    }
+
 
     // ViewPager Adapter class
     internal class ViewPagerAdapter(supportFragmentManager: FragmentManager?) :

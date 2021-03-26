@@ -28,11 +28,13 @@ class FragmentOnboardingThree : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        tabLayoutIndicator.setVisibility(View.VISIBLE)
+        val activity:OnboardingActivity = activity as OnboardingActivity
+        activity.showTabLayout()
     }
 
     override fun onResume() {
         super.onResume()
-        tabLayoutIndicator.setVisibility(View.VISIBLE)
+        val activity:OnboardingActivity = activity as OnboardingActivity
+        activity.showTabLayout()
     }
 }

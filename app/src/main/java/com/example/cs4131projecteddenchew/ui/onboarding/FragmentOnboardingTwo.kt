@@ -25,14 +25,4 @@ class FragmentOnboardingTwo : Fragment() {
 
         return root
     }
-
-    override fun onStart() {
-        super.onStart()
-        tabLayoutIndicator.setVisibility(View.VISIBLE)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        tabLayoutIndicator.setVisibility(View.VISIBLE)
-    }
 }

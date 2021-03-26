@@ -33,6 +33,18 @@ class SplashActivity : AppCompatActivity() {
         //todo account data storage
 
         viewModel = ViewModelProvider(this).get(adminViewModel::class.java)
+        viewModel.initFiles(filesDir)
+
+        adminViewModel.id = checkUser()
+
+        //todo not moving to the right activity; to fix; change bottom line to remove the !
+
+        if (!adminViewModel.id.equals(-1)){
+            startActivity(Intent(applicationContext, OnboardingActivity::class.java))
+        }
+        else{
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+        }
 
         /**val userObserver = Observer<User>{newUser ->
             if (newUser.){
@@ -44,5 +56,31 @@ class SplashActivity : AppCompatActivity() {
         }**/
 
 
+    }
+
+    fun checkUser(): Long {
+        try {
+            val scanner: Scanner = Scanner(adminViewModel.fileToUse)
+            var id = scanner.next()
+            scanner.close()
+
+            if (id.toLong().equals(0)){
+                return -1
+            }
+
+            return id.toLong()
+
+        } catch (e: ParseException) {
+            var output = PrintWriter(adminViewModel.fileToUse)
+            output.print("-1")
+            output.close()
+            return -1
+
+        } catch (e: FileNotFoundException) {
+            var output = PrintWriter(adminViewModel.fileToUse)
+            output.print("-1")
+            output.close()
+            return -1
+        }
     }
 }

@@ -17,6 +17,7 @@ class adminViewModel(): ViewModel() {
         private var user: User? = User(-1, "", "", "", -1, "", "", ArrayList<String>())
         lateinit var filesDir:File
         lateinit var fileToUse: File
+        var id:Long = -1
     }
 
     var user_data = MutableLiveData( User(-1, "", "", "", -1, "", "", ArrayList<String>()) )

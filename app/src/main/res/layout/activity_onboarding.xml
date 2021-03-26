@@ -21,4 +21,5 @@
         app:tabIndicatorHeight="0dp"
         app:tabBackground="@drawable/tab_selector" />
 
+
 </RelativeLayout>

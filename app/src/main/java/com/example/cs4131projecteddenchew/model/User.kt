@@ -55,6 +55,22 @@ class User {
     }
 
 
+    constructor(id: Long?, name: String?, email: String?, pw: String?) {
+        this.id = id
+        this.profileSrc = ""
+        this.name = name
+        this.bio = ""
+        this.exp = 0
+        this.email = email
+        this.pw = pw
+        this.friends = ArrayList<String>()
+        nameDecrypted = aes.decrypt(name, key)
+        emailDecrypted = aes.decrypt(email, key)
+        pwDecrypted = aes.decrypt(pw, key)
+
+        userSafe = UserSafe(id, profileSrc, name, bio, exp, email, pw, friends)
+    }
+
 
 
 }

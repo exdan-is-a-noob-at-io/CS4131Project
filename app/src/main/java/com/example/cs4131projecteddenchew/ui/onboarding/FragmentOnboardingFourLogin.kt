@@ -8,6 +8,7 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,15 +42,17 @@ class FragmentOnboardingFourLogin : Fragment()  {
         val ss = SpannableString("No account yet? Sign Up")
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-                //todo change this to navigation
-                val navHostFragment = FragmentOnboardingFour.fragmentManager_?.findFragmentById(R.id.admin_navigation) as NavHostFragment?
-                val navController = navHostFragment!!.navController
-                navController.navigate(R.id.login_to_sign_up)
+                val navController = FragmentOnboardingFour.navController
+
+                Log.d("TAG", FragmentOnboardingFour.navController.toString())
+                navController?.navigate(R.id.login_to_sign_up)
             }
 
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.isUnderlineText = false
+                ds.isUnderlineText = true
+                ds.color = Color.BLACK
+                ds.isFakeBoldText = true
             }
         }
         ss.setSpan(clickableSpan, 16, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

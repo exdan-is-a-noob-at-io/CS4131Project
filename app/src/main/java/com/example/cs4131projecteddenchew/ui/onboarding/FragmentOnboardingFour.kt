@@ -4,16 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.cs4131projecteddenchew.R
-import kotlinx.android.synthetic.main.activity_onboarding.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_onboarding_four.*
+
 
 class FragmentOnboardingFour : Fragment() {
     companion object Fragment{
-        var fragmentManager_:FragmentManager? = null
+        var navController:NavController? = null
     }
 
     override fun onCreateView(
@@ -22,9 +25,6 @@ class FragmentOnboardingFour : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_onboarding_four, container, false)
-
-        fragmentManager_ = fragmentManager
-
         return root
     }
 
@@ -32,6 +32,7 @@ class FragmentOnboardingFour : Fragment() {
         super.onStart()
         val activity:OnboardingActivity = activity as OnboardingActivity
         activity.removeTabLayout()
+        navController = Navigation.findNavController(activity, R.id.fragmentNav)
     }
 
     override fun onResume() {

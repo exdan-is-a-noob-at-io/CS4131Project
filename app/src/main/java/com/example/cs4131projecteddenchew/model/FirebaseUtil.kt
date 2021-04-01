@@ -6,16 +6,19 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 
-class FirebaseUtil {
-    companion object Test {
-        lateinit var database: DatabaseReference
-        lateinit var storage: FirebaseStorage
-    }
+object FirebaseUtil {
+    private var DATABASE: DatabaseReference? = null
+    private var STORAGE: FirebaseStorage? = null
 
-    init {
-        database = Firebase.database.reference
-        storage = Firebase.storage
-    }
+    val database:DatabaseReference
+        get() {
+            if (DATABASE == null) DATABASE = Firebase.database.reference
+            return DATABASE!!
+        }
 
-
+    val storage: FirebaseStorage
+        get() {
+            if (STORAGE == null) STORAGE = Firebase.storage
+            return STORAGE!!
+        }
 }

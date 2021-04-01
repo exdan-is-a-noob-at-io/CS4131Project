@@ -14,10 +14,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.RegexUtil
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_onboarding_four_sign_up.*
 
 class FragmentOnboardingFourLogin : Fragment()  {
 
@@ -60,6 +63,22 @@ class FragmentOnboardingFourLogin : Fragment()  {
         textView.text = ss
         textView.movementMethod = LinkMovementMethod.getInstance()
         textView.highlightColor = Color.TRANSPARENT
+
+        email.doAfterTextChanged {
+            if (it?.length == 0){
+                emailInputLayout.error = null
+            }
+            else if (!RegexUtil.checkEmail(it.toString())){
+                emailInputLayout.error = "Invalid Email!"
+            } else{
+                emailInputLayout.error = null
+            }
+        }
+
+        //on click
+        button.setOnClickListener{
+            //todo this
+        }
 
         return root
     }

@@ -22,6 +22,9 @@ class adminViewModel(): ViewModel() {
 
     var user_data = MutableLiveData( User(-1, "", "", "", -1, "", "", ArrayList<String>()) )
 
+    var name_ = MutableLiveData("")
+    var email = MutableLiveData("")
+    var password = MutableLiveData("")
 
     fun initFiles(filesDir_:File){
         filesDir = filesDir_
@@ -37,7 +40,7 @@ class adminViewModel(): ViewModel() {
             //use it for the value
             val database = FirebaseUtil.database
             database.child("users").child(id).get().addOnSuccessListener {
-                Log.i("firebase", "Got value ${it.value}")
+                Log.i("TAG", "Got value ${it.value}")
 
                 user = it.getValue(User::class.java)
                 //todo return thing
@@ -50,7 +53,7 @@ class adminViewModel(): ViewModel() {
                 }
 
             }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
+                Log.e("TAG", "Error getting data", it)
                 user = User(-2, "", "", "", -1, "", "", ArrayList())
                 user_data.value = user
             }

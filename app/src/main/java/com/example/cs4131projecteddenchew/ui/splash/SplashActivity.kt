@@ -2,22 +2,16 @@ package com.example.cs4131projecteddenchew.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
-import com.example.cs4131projecteddenchew.model.FirebaseUtil
-import com.example.cs4131projecteddenchew.model.User
-import com.example.cs4131projecteddenchew.model.UserSafe
 import com.example.cs4131projecteddenchew.ui.onboarding.OnboardingActivity
 import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
-import java.io.File
 import java.io.FileNotFoundException
 import java.io.PrintWriter
 import java.text.ParseException
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SplashActivity : AppCompatActivity() {
 
@@ -35,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(adminViewModel::class.java)
         viewModel.initFiles(filesDir)
 
-        adminViewModel.id = checkUser()
+        viewModel.checkUser()
 
         //todo not moving to the right activity; to fix; change bottom line to remove the !
 

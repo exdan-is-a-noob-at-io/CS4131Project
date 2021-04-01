@@ -14,18 +14,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.RegexUtil
+import com.example.cs4131projecteddenchew.model.RegexUtil.checkName
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.storage.internal.Util
+import kotlinx.android.synthetic.main.fragment_onboarding_four_login.*
 import kotlinx.android.synthetic.main.fragment_onboarding_four_sign_up.*
+import kotlinx.android.synthetic.main.fragment_onboarding_four_sign_up.emailInputLayout
 
 class FragmentOnboardingFourSignUp : Fragment()  {
 
-    private lateinit var name: TextInputEditText
-    private lateinit var email: TextInputEditText
-    private lateinit var password: TextInputEditText
-    private lateinit var passwordAgain: TextInputEditText
+    lateinit var name: TextInputEditText
+    lateinit var email: TextInputEditText
+    lateinit var password: TextInputEditText
+    lateinit var passwordAgain: TextInputEditText
     private lateinit var button: Button
     private lateinit var textView: TextView
 
@@ -65,6 +71,49 @@ class FragmentOnboardingFourSignUp : Fragment()  {
         textView.text = ss
         textView.movementMethod = LinkMovementMethod.getInstance()
         textView.highlightColor = Color.TRANSPARENT
+
+
+        name.doAfterTextChanged {
+            if (it?.toString()?.length == 0){
+                nameInputLayout.error = null
+            } else if (it?.toString()?.length!! < 3){
+                nameInputLayout.error = "Name must be at least 3 characters long!"
+            } else if (!RegexUtil.checkName(it.toString())){
+                nameInputLayout.error = "Name may only consist of letters, numbers and underscores"
+                //Log.d("TAG", it.toString())
+            } else{
+                nameInputLayout.error = null
+            }
+        }
+
+        email.doAfterTextChanged {
+            if (it?.length == 0){
+                emailInputLayout.error = null
+            }
+            else if (!RegexUtil.checkEmail(it.toString())){
+                emailInputLayout.error = "Invalid Email!"
+            } else{
+                emailInputLayout.error = null
+            }
+        }
+
+        passwordAgain.doAfterTextChanged {
+            if (it?.length == 0){
+                passwordInputLayoutAgain.error = null
+            }
+            else if (!passwordAgain.text.toString()?.equals(password.text.toString())){
+                passwordInputLayoutAgain.error = "Passwords do not match"
+            } else{
+                passwordInputLayoutAgain.error = null
+            }
+        }
+
+
+
+        //on click
+        button.setOnClickListener{
+            //todo this
+        }
 
         return root
     }

@@ -1,7 +1,7 @@
 package com.example.cs4131projecteddenchew.model
 
 class UserSafe {
-    var id: Long?
+    var id: String?
     lateinit var profileSrc: String
     lateinit var name: String
     lateinit var bio: String
@@ -10,7 +10,7 @@ class UserSafe {
     lateinit var pw: String
     lateinit var friends: List<String>
 
-    constructor(id: Long?, profileSrc: String?, name: String?, bio: String?, exp: Long?, email: String?, pw: String?, friends: List<String>?) {
+    constructor(id: String?, profileSrc: String?, name: String?, bio: String?, exp: Long?, email: String?, pw: String?, friends: List<String>?) {
         this.id = id
         if (profileSrc != null) {
             this.profileSrc = profileSrc

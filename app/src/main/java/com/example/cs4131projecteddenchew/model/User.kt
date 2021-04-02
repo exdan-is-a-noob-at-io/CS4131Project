@@ -1,7 +1,7 @@
 package com.example.cs4131projecteddenchew.model
 
 class User {
-    var id: Long? = null
+    var id: String? = null
     var profileSrc: String? = null
     var name: String? = null
     var bio: String? = null
@@ -21,7 +21,7 @@ class User {
     var userSafe:UserSafe? = null
 
 
-    constructor(id: Long?, profileSrc: String?, name: String?, bio: String?, exp: Long?, email: String?, pw: String?, friends: List<String>) {
+    constructor(id: String?, profileSrc: String?, name: String?, bio: String?, exp: Long?, email: String?, pw: String?, friends: List<String>) {
         this.id = id
         this.profileSrc = profileSrc
         this.name = name
@@ -37,7 +37,7 @@ class User {
         userSafe = UserSafe(id, profileSrc, name, bio, exp, email, pw, friends)
     }
 
-    constructor(id: Long?, profileSrc: String?, bio: String?, exp: Long?, friends: List<String>, nameDecrypted: String?, emailDecrypted: String?, pwDecrypted: String?) {
+    constructor(id: String?, profileSrc: String?, bio: String?, exp: Long?, friends: List<String>, nameDecrypted: String?, emailDecrypted: String?, pwDecrypted: String?) {
         this.id = id
         this.profileSrc = profileSrc
         this.bio = bio
@@ -55,7 +55,7 @@ class User {
     }
 
 
-    constructor(id: Long?, name: String?, email: String?, pw: String?) {
+    constructor(id: String?, name: String?, email: String?, pw: String?) {
         this.id = id
         this.profileSrc = ""
         this.name = name

@@ -14,11 +14,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.FirebaseUtil
 import com.example.cs4131projecteddenchew.model.RegexUtil
+import com.example.cs4131projecteddenchew.model.User
+import com.example.cs4131projecteddenchew.ui.splash.SplashActivity.Test.viewModel
+import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_onboarding_four_sign_up.*
 
@@ -28,6 +35,9 @@ class FragmentOnboardingFourLogin : Fragment()  {
     private lateinit var password: TextInputEditText
     private lateinit var button: Button
     private lateinit var textView: TextView
+
+    var email_:String = ""
+    var password_:String = ""
 
 
     override fun onCreateView(
@@ -77,8 +87,32 @@ class FragmentOnboardingFourLogin : Fragment()  {
 
         //on click
         button.setOnClickListener{
-            //todo this
+            email_ = email.text.toString()
+            password_ = password.text.toString()
+            if (email_.isEmpty() || password_.isEmpty()){
+                Toast.makeText(context, "Some fields not filled in", Toast.LENGTH_LONG).show()
+            }
+            else{
+                FirebaseUtil.checkLogin(User.encryptVal(email_), User.encryptVal(password_), context)
+            }
+
         }
+
+        val resultObserver = Observer<User> {
+                result ->
+
+            if (!result.id.equals("-2")){
+                viewModel.writeToFile()
+                Toast.makeText(context, "You Are Logged In!!", Toast.LENGTH_LONG).show()
+                startActivity(Intent(context, MainActivity::class.java))
+            }
+
+
+
+            //todo change it so you cant go back; as per greenpass
+        }
+
+        adminViewModel.user_data.observe(viewLifecycleOwner, resultObserver)
 
         return root
     }

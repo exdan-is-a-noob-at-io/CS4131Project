@@ -1,5 +1,7 @@
 package com.example.cs4131projecteddenchew.model
 
+import android.util.Log
+
 class User {
     var id: String? = null
     var profileSrc: String? = null
@@ -15,13 +17,40 @@ class User {
     var emailDecrypted: String? = null
     var pwDecrypted: String? = null
 
-    var aes = AES()
-    var key = "Praeclarum"
-
     var userSafe:UserSafe? = null
 
 
-    constructor(id: String?, profileSrc: String?, name: String?, bio: String?, exp: Long?, email: String?, pw: String?, friends: List<String>) {
+    companion object Test{
+        var aes = AES()
+        var key = "Praeclarum"
+        public fun encryptVal(value:String?):String?{
+            return aes.encrypt(value, key)
+        }
+    }
+
+    //todo order this as per firebase
+
+    constructor(){
+
+    }
+
+    constructor(bio: String?, email: String?, exp: Long?, id: String?, name: String?, profileSrc: String?, pw: String?, friends: List<String>) {
+        this.id = id
+        this.profileSrc = profileSrc
+        this.name = name
+        this.bio = bio
+        this.exp = exp
+        this.email = email
+        this.pw = pw
+        this.friends = friends
+        nameDecrypted = aes.decrypt(name, key)
+        emailDecrypted = aes.decrypt(email, key)
+        pwDecrypted = aes.decrypt(pw, key)
+
+        userSafe = UserSafe(id, profileSrc, name, bio, exp, email, pw, friends)
+    }
+
+    constructor(bio: String?, email: String?, exp: Long?, id: String?, name: String?, profileSrc: String?, pw: String?) {
         this.id = id
         this.profileSrc = profileSrc
         this.name = name
@@ -55,20 +84,37 @@ class User {
     }
 
 
-    constructor(id: String?, name: String?, email: String?, pw: String?) {
-        this.id = id
-        this.profileSrc = ""
-        this.name = name
-        this.bio = ""
-        this.exp = 0
-        this.email = email
-        this.pw = pw
-        this.friends = ArrayList<String>()
-        nameDecrypted = aes.decrypt(name, key)
-        emailDecrypted = aes.decrypt(email, key)
-        pwDecrypted = aes.decrypt(pw, key)
+    constructor(id: String?, name: String?, email: String?, pw: String?, encrypted: Boolean) {
+        if (encrypted){
+            this.id = id
+            this.profileSrc = ""
+            this.name = name
+            this.bio = ""
+            this.exp = 0
+            this.email = email
+            this.pw = pw
+            this.friends = ArrayList<String>()
+            nameDecrypted = aes.decrypt(name, key)
+            emailDecrypted = aes.decrypt(email, key)
+            pwDecrypted = aes.decrypt(pw, key)
+        }
+        else{
+            this.id = id
+            this.profileSrc = ""
+            this.bio = ""
+            this.exp = 0
+            this.friends = ArrayList<String>()
+            this.nameDecrypted = name
+            this.emailDecrypted = email
+            this.pwDecrypted = pw
 
-        userSafe = UserSafe(id, profileSrc, name, bio, exp, email, pw, friends)
+
+            this.name = aes.encrypt(nameDecrypted, key)
+            this.email = aes.encrypt(emailDecrypted, key)
+            this.pw = aes.encrypt(pwDecrypted, key)
+        }
+
+        userSafe = UserSafe(id, profileSrc, this.name, bio, exp, this.email, this.pw, friends)
     }
 
 

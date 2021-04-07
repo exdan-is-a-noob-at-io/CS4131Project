@@ -14,17 +14,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.FirebaseUtil
 import com.example.cs4131projecteddenchew.model.RegexUtil
 import com.example.cs4131projecteddenchew.model.RegexUtil.checkName
+import com.example.cs4131projecteddenchew.model.User
+import com.example.cs4131projecteddenchew.ui.splash.SplashActivity
+import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.storage.internal.Util
 import kotlinx.android.synthetic.main.fragment_onboarding_four_login.*
 import kotlinx.android.synthetic.main.fragment_onboarding_four_sign_up.*
 import kotlinx.android.synthetic.main.fragment_onboarding_four_sign_up.emailInputLayout
+import androidx.lifecycle.Observer
 
 class FragmentOnboardingFourSignUp : Fragment()  {
 
@@ -34,6 +42,11 @@ class FragmentOnboardingFourSignUp : Fragment()  {
     lateinit var passwordAgain: TextInputEditText
     private lateinit var button: Button
     private lateinit var textView: TextView
+    private lateinit var viewModel:adminViewModel
+    var name_: String = ""
+    var email_:String = ""
+    var password_: String = ""
+    var passwordAgain_:String = ""
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +61,8 @@ class FragmentOnboardingFourSignUp : Fragment()  {
         passwordAgain = root.findViewById(R.id.passwordInputAgain)
         button = root.findViewById(R.id.onboardingButton)
         textView = root.findViewById(R.id.onboardingTextView)
+
+        viewModel = SplashActivity.viewModel
 
 
         val ss = SpannableString("Existing User? Log in")
@@ -71,6 +86,8 @@ class FragmentOnboardingFourSignUp : Fragment()  {
         textView.text = ss
         textView.movementMethod = LinkMovementMethod.getInstance()
         textView.highlightColor = Color.TRANSPARENT
+
+        //todo make the option for the pw hidden
 
 
         name.doAfterTextChanged {
@@ -113,7 +130,44 @@ class FragmentOnboardingFourSignUp : Fragment()  {
         //on click
         button.setOnClickListener{
             //todo this
+            name_ = name.text.toString()
+            email_ = email.text.toString()
+            password_ = password.text.toString()
+            passwordAgain_ = passwordAgain.text.toString()
+            //todo chaneg this to snack bar?
+            if (name_.isEmpty() || email_.isEmpty() || password_.isEmpty() || passwordAgain_.isEmpty()){
+                Toast.makeText(context, "Some fields not filled in", Toast.LENGTH_LONG).show()
+            } else if (name_.length < 3){
+                Toast.makeText(context, "Name must be at least 3 characters long!", Toast.LENGTH_LONG).show()
+            } else if (!RegexUtil.checkName(name_)){
+                Toast.makeText(context, "Name may only consist of letters, numbers and underscores", Toast.LENGTH_LONG).show()
+            } else if (!RegexUtil.checkEmail(email_)){
+                Toast.makeText(context, "Invalid Email", Toast.LENGTH_LONG).show()
+            }
+            else if (passwordAgain_ == password_){
+                FirebaseUtil.checkEmail(User.encryptVal(email_), context)
+            }
+            else{
+                Toast.makeText(context, "Passwords do not match", Toast.LENGTH_LONG).show()
+            }
+
         }
+
+
+
+
+        val resultObserver = Observer<String> {
+            result ->
+            //todo need fix this
+            viewModel.writeNewUser(User(adminViewModel.id.value, name_, email_, password_, false).userSafe)
+            name.setText("")
+            email.setText("")
+            password.setText("")
+            passwordAgain.setText("")
+            Toast.makeText(context, "Account Created!", Toast.LENGTH_LONG).show()
+        }
+
+        adminViewModel.id.observe(viewLifecycleOwner, resultObserver)
 
         return root
     }

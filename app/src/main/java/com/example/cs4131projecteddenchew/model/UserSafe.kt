@@ -1,11 +1,13 @@
 package com.example.cs4131projecteddenchew.model
 
+import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
+
 class UserSafe {
     var id: String?
     lateinit var profileSrc: String
     lateinit var name: String
     lateinit var bio: String
-    var exp: Long?
+    var exp: Long? = 0
     lateinit var email: String
     lateinit var pw: String
     lateinit var friends: List<String>
@@ -32,4 +34,10 @@ class UserSafe {
             this.friends = friends
         }
     }
+
+    override fun toString(): String {
+        return "UserSafe(id=$id, profileSrc='$profileSrc', name='$name', bio='$bio', exp=$exp, email='$email', pw='$pw', friends=$friends)"
+    }
+
+
 }

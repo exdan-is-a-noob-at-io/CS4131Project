@@ -15,26 +15,67 @@ import kotlin.collections.ArrayList
 
 class adminViewModel(): ViewModel() {
     companion object Test{
-        private var user: User? = User("-1", "", "", "", -1, "", "", ArrayList<String>())
+        private var user: User? = User("", "", -1, "-1", "", "", "", ArrayList<String>())
         lateinit var filesDir:File
         lateinit var fileToUse: File
-        var id:Long = -1
+        var id = MutableLiveData("-2")
+        var user_data = MutableLiveData(User("", "", -1, "-1", "", "", "", ArrayList<String>()))
     }
 
-    var user_data = MutableLiveData( User("-1", "", "", "", -1, "", "", ArrayList<String>()) )
+
 
     var name_ = MutableLiveData("")
     var email = MutableLiveData("")
     var password = MutableLiveData("")
 
-    fun initFiles(filesDir_:File){
+    fun initFiles(filesDir_: File){
         filesDir = filesDir_
         fileToUse = File(filesDir, "accountDeatils.txt")
     }
 
-    fun writeNewUser(userSafe: UserSafe) {
+
+    //for debugging
+    fun writeToFile(string:String){
+        var output: PrintWriter? = null
+        try {
+            output = PrintWriter(fileToUse)
+            output.print(string)
+            output.close()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun writeToFile(){
+        var output: PrintWriter? = null
+        try {
+            output = PrintWriter(fileToUse)
+            output.print(user_data.value?.id)
+            Log.i("TAG", "the id is: " + user_data.value?.id)
+            output.close()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun writeNewUser(userSafe: UserSafe?) {
         val database = FirebaseUtil.database
-        userSafe.id?.let { database.child("users").child(it).setValue(userSafe) }
+
+        //testing
+        //database.child("users").child("name").setValue("hello world!").addOnSuccessListener {
+        //    Log.e("TAG", "Works")
+        //}.addOnFailureListener{
+        //    Log.e("TAG", "fails :(", it)
+        //}
+
+        Log.e("TAG", "In viewmodel")
+
+        userSafe?.id?.let { database.child("users").child(userSafe.id!!).setValue(userSafe).addOnSuccessListener {
+            Log.e("TAG", "WORKS")
+        }.addOnFailureListener {
+            Log.e("TAG", "write new user fails", it)
+        } }
+
     }
 
 
@@ -44,6 +85,13 @@ class adminViewModel(): ViewModel() {
             var id = scanner.next()
             scanner.close()
 
+            Log.i("TAG", "THE ID IS " + id)
+            if (id == "-1" || id == ""){
+                user = User("", "", -1, "-2", "", "", "", ArrayList<String>())
+                user_data.value = user
+                return
+            }
+
             //use it for the value
             val database = FirebaseUtil.database
             database.child("users").child(id).get().addOnSuccessListener {
@@ -52,7 +100,7 @@ class adminViewModel(): ViewModel() {
                 user = it.getValue(User::class.java)
                 //todo return thing
                 if (user == null){
-                    user = User("-2", "", "", "", -1, "", "", ArrayList())
+                    user = User("", "", -1, "-2", "", "", "", ArrayList<String>())
                     user_data.value = user
                 }
                 else{
@@ -61,21 +109,27 @@ class adminViewModel(): ViewModel() {
 
             }.addOnFailureListener{
                 Log.e("TAG", "Error getting data", it)
-                user = User("-2", "", "", "", -1, "", "", ArrayList())
+                user = User("", "", -1, "-2", "", "", "", ArrayList<String>())
                 user_data.value = user
             }
         } catch (e: ParseException) {
             var output = PrintWriter(fileToUse)
             output.print("")
             output.close()
-            user = User("-2", "", "", "", -1, "", "", ArrayList())
+            user = User("", "", -1, "-2", "", "", "", ArrayList<String>())
             user_data.value = user
 
         } catch (e: FileNotFoundException) {
             var output = PrintWriter(fileToUse)
             output.print("")
             output.close()
-            user = User("-2", "", "", "", -1, "", "", ArrayList())
+            user = User("", "", -1, "-2", "", "", "", ArrayList<String>())
+            user_data.value = user
+        } catch (e: NoSuchElementException) {
+            var output = PrintWriter(fileToUse)
+            output.print("")
+            output.close()
+            user = User("", "", -1, "-2", "", "", "", ArrayList<String>())
             user_data.value = user
         }
 

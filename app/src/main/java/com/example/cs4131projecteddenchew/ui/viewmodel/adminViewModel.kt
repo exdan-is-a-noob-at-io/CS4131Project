@@ -98,7 +98,6 @@ class adminViewModel(): ViewModel() {
                 Log.i("TAG", "Got value ${it.value}")
 
                 user = it.getValue(User::class.java)
-                //todo return thing
                 if (user == null){
                     user = User("", "", -1, "-2", "", "", "", ArrayList<String>())
                     user_data.value = user

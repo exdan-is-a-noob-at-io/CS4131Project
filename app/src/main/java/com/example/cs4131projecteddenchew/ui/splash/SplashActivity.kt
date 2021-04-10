@@ -39,6 +39,7 @@ class SplashActivity : AppCompatActivity() {
 
         val resultObserver = Observer<User> {
                 result ->
+            Log.i("TAG", "Retrieved result " + result.id)
             if (result.id.equals("-1")){
                 Log.i("TAG", "onboarding via splash " + result.id)
             }
@@ -46,7 +47,8 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(applicationContext, OnboardingActivity::class.java))
             }
             else{
-                //viewModel.writeToFile(""); resets account details storage
+                //viewModel.writeToFile(""); //resets account details storage
+                Log.i("TAG", "Starting Activity with id " + result.id)
                 startActivity(Intent(applicationContext, MainActivity::class.java))
             }
 

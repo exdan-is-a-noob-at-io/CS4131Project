@@ -28,8 +28,6 @@ class User {
         }
     }
 
-    //todo order this as per firebase
-
     constructor(){
 
     }

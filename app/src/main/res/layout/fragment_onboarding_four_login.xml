@@ -31,13 +31,16 @@
         app:layout_constraintVertical_bias="0.05"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:id="@+id/emailInputLayout">
+        android:id="@+id/emailInputLayout"
+        android:textColorHint="@color/grey_40">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_email" />
+            android:background="@color/grey_80"
+            android:hint="@string/prompt_email"
+            android:textColor="@color/grey_20"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -51,13 +54,19 @@
         android:layout_marginEnd="24dp"
         android:layout_marginTop="24dp"
         android:id="@+id/passwordInputLayout"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:textColorHint="@color/grey_40"
+        app:passwordToggleTint="@color/grey_40"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_password" />
+            android:hint="@string/prompt_password"
+            android:background="@color/grey_80"
+            android:textColor="@color/grey_20"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -86,7 +95,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:gravity="center"
-        android:background="@color/grey_10"/>
+        android:background="@color/grey_80"/>
 
     <ProgressBar
         android:id="@+id/loading"

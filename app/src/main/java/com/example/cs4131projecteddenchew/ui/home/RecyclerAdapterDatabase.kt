@@ -20,13 +20,13 @@ class RecyclerAdapterDatabase(private val context: Context) :
 
     //todo change images
     private val images = ArrayList<Int>(Arrays.asList(
-        R.drawable.temp_profile
+        R.drawable.ic_baseline_insert_drive_file_24
     ))
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.square_card_layout_tint, parent, false)
         return ViewHolder(v)
     }
 

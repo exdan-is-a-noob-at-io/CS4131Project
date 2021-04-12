@@ -13,8 +13,11 @@ public class Post {
     var explaination: String? = null
     var comments: List<Long>? = null
     var tags: List<Long>? = null
+    var published: Boolean? = null
 
-    constructor(id: Long?, questionSrc: String?, source: String?, qnType: Long?, targettedLevel: Long?, answer: String?, explaination: String?, comments: List<Long>?, tags: List<Long>?) {
+
+
+    constructor(id: Long?, questionSrc: String?, source: String?, qnType: Long?, targettedLevel: Long?, answer: String?, explaination: String?, comments: List<Long>?, tags: List<Long>?, published:Boolean?) {
         this.id = id
         this.questionSrc = questionSrc
         this.source = source
@@ -24,5 +27,8 @@ public class Post {
         this.explaination = explaination
         this.comments = comments
         this.tags = tags
+        this.published = published
     }
+
+    constructor()
 }

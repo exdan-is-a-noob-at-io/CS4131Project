@@ -33,7 +33,7 @@ object FirebaseUtil {
             return STORAGE!!
         }
 
-    fun checkEmail(emailEncrypted:String?, context: Context?){
+    fun checkEmail(nameEncrypted:String?, emailEncrypted:String?, context: Context?){
         database.child("users").get().addOnSuccessListener {
             var unique = true
             it.children.forEach{
@@ -42,10 +42,30 @@ object FirebaseUtil {
                 }
             }
             if (unique){
-                getID()
+                checkName(nameEncrypted, context)
             }
             else{
                 Toast.makeText(context, "Email Already In Use!", Toast.LENGTH_LONG).show()
+            }
+
+        }.addOnFailureListener{
+            Log.e("TAG", "Error getting data getID", it)
+        }
+    }
+
+    fun checkName(nameEncrypted:String?, context: Context?){
+        database.child("users").get().addOnSuccessListener {
+            var unique = true
+            it.children.forEach{
+                if (it.child("name").value?.equals(nameEncrypted) == true){
+                    unique = false
+                }
+            }
+            if (unique){
+                getID()
+            }
+            else{
+                Toast.makeText(context, "Name Already In Use!", Toast.LENGTH_LONG).show()
             }
 
         }.addOnFailureListener{

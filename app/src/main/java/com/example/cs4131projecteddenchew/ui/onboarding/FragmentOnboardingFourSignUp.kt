@@ -49,8 +49,8 @@ class FragmentOnboardingFourSignUp : Fragment()  {
     var passwordAgain_:String = ""
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_onboarding_four_sign_up, container, false)
@@ -77,7 +77,7 @@ class FragmentOnboardingFourSignUp : Fragment()  {
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.isUnderlineText = true
-                ds.color = Color.BLACK
+                ds.color = Color.parseColor("#DDDDDD")
                 ds.isFakeBoldText = true
             }
         }
@@ -134,7 +134,7 @@ class FragmentOnboardingFourSignUp : Fragment()  {
             email_ = email.text.toString()
             password_ = password.text.toString()
             passwordAgain_ = passwordAgain.text.toString()
-            //todo chaneg this to snack bar?
+            //todo change this to snack bar?
             if (name_.isEmpty() || email_.isEmpty() || password_.isEmpty() || passwordAgain_.isEmpty()){
                 Toast.makeText(context, "Some fields not filled in", Toast.LENGTH_LONG).show()
             } else if (name_.length < 3){
@@ -145,7 +145,7 @@ class FragmentOnboardingFourSignUp : Fragment()  {
                 Toast.makeText(context, "Invalid Email", Toast.LENGTH_LONG).show()
             }
             else if (passwordAgain_ == password_){
-                FirebaseUtil.checkEmail(User.encryptVal(email_), context)
+                FirebaseUtil.checkEmail(User.encryptVal(name_), User.encryptVal(email_), context)
             }
             else{
                 Toast.makeText(context, "Passwords do not match", Toast.LENGTH_LONG).show()
@@ -157,14 +157,18 @@ class FragmentOnboardingFourSignUp : Fragment()  {
 
 
         val resultObserver = Observer<String> {
-            result ->
-            //todo need fix this
-            viewModel.writeNewUser(User(adminViewModel.id.value, name_, email_, password_, false).userSafe)
-            name.setText("")
-            email.setText("")
-            password.setText("")
-            passwordAgain.setText("")
-            Toast.makeText(context, "Account Created!", Toast.LENGTH_LONG).show()
+                result ->
+            if (result == "-1" || result == "" || result == "-2"){
+            }
+            else{
+                viewModel.writeNewUser(User(adminViewModel.id.value, name_, email_, password_, false).userSafe)
+                name.setText("")
+                email.setText("")
+                password.setText("")
+                passwordAgain.setText("")
+                Toast.makeText(context, "Account Created!", Toast.LENGTH_LONG).show()
+            }
+
         }
 
         adminViewModel.id.observe(viewLifecycleOwner, resultObserver)

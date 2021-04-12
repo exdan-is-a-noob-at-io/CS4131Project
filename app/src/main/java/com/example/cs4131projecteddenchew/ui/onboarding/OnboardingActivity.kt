@@ -38,6 +38,7 @@ class OnboardingActivity : AppCompatActivity() {
         // Setup dot's indicator
         tabLayout = findViewById<TabLayout>(R.id.tabLayoutIndicator)
         tabLayout.setupWithViewPager(viewPager)
+        tabLayout.setBackgroundResource(R.color.grey_90)
     }
 
     public fun showTabLayout(){

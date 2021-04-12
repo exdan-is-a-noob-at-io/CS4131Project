@@ -11,4 +11,6 @@ class Tag {
         this.id = id_
         this.name = name_
     }
+
+    constructor()
 }

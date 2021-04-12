@@ -11,7 +11,8 @@
     app:cardElevation="3dp"
     app:contentPadding="4dp"
     android:foreground="?selectableItemBackground"
-    android:clickable="true">
+    android:clickable="true"
+    android:backgroundTint="@color/grey_80">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
@@ -32,7 +33,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.173"
-            tools:text="Statement:" />
+            tools:text="Statement:"
+            android:textColor="@color/grey_20"/>
 
         <TextView
             android:id="@+id/textView5"
@@ -47,10 +49,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/textviewstatement"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="Answer:" />
+            tools:text="Answer:"
+            android:textColor="@color/grey_20"/>
 
-        <TextView
-            android:id="@+id/wrap_content"
+
+        <katex.hourglass.in.mathlib.MathView
+            android:id="@+id/statementTextView"
             android:layout_width="wrap_content"
             android:layout_height="41dp"
             android:gravity="center"
@@ -61,7 +65,10 @@
             app:layout_constraintStart_toEndOf="@+id/textviewstatement"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.173"
-            tools:text="" />
+            android:backgroundTint="@color/grey_80"
+            android:layout_marginStart="10dp"
+            android:clickable="false"
+            app:setTextColor="@color/grey_20"/>
 
         <TextView
             android:id="@+id/answerTextView"
@@ -76,7 +83,8 @@
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="@id/textviewstatement"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="" />
+            tools:text=""
+            android:layout_marginLeft="10dp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

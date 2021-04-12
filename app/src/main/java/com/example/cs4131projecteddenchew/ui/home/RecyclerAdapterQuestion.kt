@@ -1,11 +1,15 @@
 package com.example.cs4131projecteddenchew.ui.home
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
 import java.util.*
@@ -26,7 +30,7 @@ class RecyclerAdapterQuestion(private val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.square_card_layout_tint, parent, false)
         return ViewHolder(v)
     }
 
@@ -48,8 +52,14 @@ class RecyclerAdapterQuestion(private val context: Context) :
             imageView = itemView.findViewById(R.id.cardIconImageView)
 
             itemView.setOnClickListener { view ->
+                val navController = Navigation.findNavController(itemView)
                 val position = adapterPosition
-                //todo this
+                if (position == 0){
+                    navController.navigate(R.id.action_navigation_home_to_navigation_make_question)
+                }
+                else{
+                    navController.navigate(R.id.action_navigation_home_to_navigation_viewQuestions)
+                }
             }
         }
     }

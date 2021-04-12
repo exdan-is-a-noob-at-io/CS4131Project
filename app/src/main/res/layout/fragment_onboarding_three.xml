@@ -31,7 +31,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.05"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/grey_90">
 
         <include layout="@layout/card_layout_onboarding" />
     </androidx.cardview.widget.CardView>

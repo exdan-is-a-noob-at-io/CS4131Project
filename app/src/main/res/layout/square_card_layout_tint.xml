@@ -2,16 +2,16 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="375dp"
-    android:layout_height="520dp"
-    android:id="@+id/card_view_onboarding"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:id="@+id/card_view"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/grey_80"
-    app:cardCornerRadius="30dp"
+    app:cardBackgroundColor="@color/grey_90"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
     app:contentPadding="4dp"
     android:foreground="?selectableItemBackground"
-    android:clickable="true"
-    android:elevation="0dp">
+    android:clickable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
@@ -19,28 +19,29 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
+
         <TextView
-            android:id="@+id/topText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:id="@+id/sectionTypeTextView"
+            android:layout_width="146dp"
+            android:layout_height="41dp"
+            android:gravity="center"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"
-            android:layout_marginTop="30dp"
-            android:gravity="center" />
+            app:layout_constraintVertical_bias="1"
+            tools:text="@tools:sample/first_names" />
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/cardIconImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toTopOf="@+id/sectionTypeTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            android:backgroundTint="@color/grey_20"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

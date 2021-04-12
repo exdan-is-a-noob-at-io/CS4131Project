@@ -31,5 +31,7 @@ class Comment {
         this.time = df.parse(timeString_)
     }
 
+    constructor()
+
 
 }

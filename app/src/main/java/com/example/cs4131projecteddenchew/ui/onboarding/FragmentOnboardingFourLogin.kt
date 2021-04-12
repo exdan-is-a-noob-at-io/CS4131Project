@@ -64,7 +64,7 @@ class FragmentOnboardingFourLogin : Fragment()  {
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.isUnderlineText = true
-                ds.color = Color.BLACK
+                ds.color = Color.parseColor("#DDDDDD")
                 ds.isFakeBoldText = true
             }
         }

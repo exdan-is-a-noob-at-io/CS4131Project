@@ -70,11 +70,18 @@ class adminViewModel(): ViewModel() {
 
         Log.e("TAG", "In viewmodel")
 
-        userSafe?.id?.let { database.child("users").child(userSafe.id!!).setValue(userSafe).addOnSuccessListener {
-            Log.e("TAG", "WORKS")
-        }.addOnFailureListener {
-            Log.e("TAG", "write new user fails", it)
-        } }
+        if (userSafe?.id == "-2" || userSafe?.id == "-1"){
+            return
+        }
+        else{
+            userSafe?.id?.let { database.child("users").child(userSafe.id!!).setValue(userSafe).addOnSuccessListener {
+                Log.e("TAG", "WORKS")
+            }.addOnFailureListener {
+                Log.e("TAG", "write new user fails", it)
+            } }
+        }
+
+
 
     }
 

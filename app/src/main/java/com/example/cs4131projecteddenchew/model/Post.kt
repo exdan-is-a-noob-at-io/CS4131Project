@@ -5,21 +5,24 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 public class Post {
     var id: Long? = null
-    var questionSrc: String? = null
+    var posterId: String? = null
+    var questionStatement: String? = null
     var source: String? = null
     var qnType: Long? = null
     var targettedLevel: Long? = null
     var answer: String? = null
     var explaination: String? = null
     var comments: List<Long>? = null
-    var tags: List<Long>? = null
+    var tags: List<String>? = null
     var published: Boolean? = null
 
 
 
-    constructor(id: Long?, questionSrc: String?, source: String?, qnType: Long?, targettedLevel: Long?, answer: String?, explaination: String?, comments: List<Long>?, tags: List<Long>?, published:Boolean?) {
+    constructor(id: Long?, posterId: String?, questionStatement: String?, source: String?, qnType: Long?,
+                answer: String?, explaination: String?, comments: List<Long>?, tags: List<String>?, published:Boolean?) {
         this.id = id
-        this.questionSrc = questionSrc
+        this.posterId = posterId
+        this.questionStatement = questionStatement
         this.source = source
         this.qnType = qnType
         this.targettedLevel = targettedLevel
@@ -30,5 +33,11 @@ public class Post {
         this.published = published
     }
 
+
+
     constructor()
+
+    override fun toString(): String {
+        return "Post(id=$id, posterId=$posterId, questionStatement=$questionStatement, source=$source, qnType=$qnType, targettedLevel=$targettedLevel, answer=$answer, explaination=$explaination, comments=$comments, tags=$tags, published=$published)"
+    }
 }

@@ -2,19 +2,25 @@ package com.example.cs4131projecteddenchew.ui.question_suggest
 
 import android.content.res.Resources
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
+import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.FirebaseUtil
+import com.example.cs4131projecteddenchew.model.Post
+import com.example.cs4131projecteddenchew.model.User
+import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import kotlinx.android.synthetic.main.make_question_fragment.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class makeQuestionFragment : Fragment() {
 
@@ -69,6 +75,74 @@ class makeQuestionFragment : Fragment() {
         radioButtonRound2.setOnClickListener{
             onRadioButtonClicked(it)
         }
+
+        val resultObserver = Observer<Long> {
+            result ->
+            if (result > 0){
+                qnIDEditText.setText(result.toString())
+                var questionStatement:String = editTextQuestion.text.toString()
+
+                if (!questionStatement.isEmpty()){
+                    var source:String = sourceEditText.text.toString()
+                    var qnType:Long = 0
+                    var answer = ""
+
+                    if (radioButtonRound2.isChecked){
+                        qnType = 4
+                        answer = "This is a Round 2 Question; no answer is available!"
+                    }
+                    else{
+                        qnType = spinnerTargettedLevel.selectedItemPosition.toLong()
+                        answer = answerEditText.text.toString()
+                    }
+
+                    var explaination:String = editTextExplaination.text.toString()
+                    var published:Boolean = (spinnerPublishingStatus.selectedItemPosition == 1)
+                    var comments = ArrayList<Long>()
+                    var tags = getTags(editTextTags.text.toString())
+
+                    var post:Post = Post(result, adminViewModel.user_data.value?.id, questionStatement, source, qnType, answer,
+                            explaination, comments, tags, published)
+                    Log.i("TAG", post.toString())
+                    FirebaseUtil.writeNewQuestion(post, context)
+                }
+            }
+            else{
+                qnIDEditText.setText("-")
+            }
+        }
+
+        MakeQuestionViewModel.postId.observe(viewLifecycleOwner, resultObserver)
+
+        saveQuestionButton.setOnClickListener {
+            if (qnIDEditText.text.toString().equals("-")){
+                MakeQuestionViewModel.postId.value = -1
+                FirebaseUtil.getPostID()
+            } else {
+                var questionStatement:String = editTextQuestion.text.toString()
+                var source:String = sourceEditText.text.toString()
+                var qnType:Long = 0
+                var answer = ""
+
+                if (radioButtonRound2.isChecked){
+                    qnType = 4
+                }
+                else{
+                    qnType = spinnerTargettedLevel.selectedItemPosition.toLong()
+                    answer = answerEditText.text.toString()
+                }
+
+                var explaination:String = editTextExplaination.text.toString()
+                var published:Boolean = (spinnerPublishingStatus.selectedItemPosition == 1)
+                var comments = ArrayList<Long>()
+                var tags = getTags(editTextTags.text.toString())
+
+                var post:Post = Post(qnIDEditText.text.toString().toLong(), adminViewModel.user_data.value?.id, questionStatement,
+                        source, qnType, answer, explaination, comments, tags, published)
+                Log.i("TAG", post.toString())
+                FirebaseUtil.writeNewQuestion(post, context)
+            }
+        }
     }
 
     public fun onRadioButtonClicked(view: View) {
@@ -82,11 +156,13 @@ class makeQuestionFragment : Fragment() {
                     if (checked) {
                         spinnerTargettedLevel.isEnabled = true
                         answerEditText.isEnabled = true
+                        spinnerTargettedLevel.setAlpha(1.0f)
                     }
                 R.id.radioButtonRound2 ->
                     if (checked) {
                         spinnerTargettedLevel.isEnabled = false
                         answerEditText.isEnabled = false
+                        spinnerTargettedLevel.setAlpha(0.4f)
                     }
             }
         }
@@ -102,6 +178,41 @@ class makeQuestionFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (MakeQuestionViewModel.postId.value!! > 0){
+            qnIDEditText.setText(MakeQuestionViewModel.postId.value.toString())
+        }
+        else{
+            qnIDEditText.setText("-")
+        }
+    }
+
+    fun getTags(string:String):ArrayList<String> {
+        var out:ArrayList<String> = ArrayList()
+
+
+        Log.i("TAG", string)
+
+        var inString = string
+
+
+        var scanner = Scanner(inString)
+        scanner.useDelimiter(",")
+        while (scanner.hasNext()){
+            var tag = scanner.next()
+            Log.i("TAG", tag)
+            if (!out.contains(tag.trim())  &&  !tag.isBlank()){
+                out.add(tag.trim())
+            }
+        }
+        scanner.close()
+
+        Log.i("TAG", out.toString())
+
+        return out
     }
 
 }

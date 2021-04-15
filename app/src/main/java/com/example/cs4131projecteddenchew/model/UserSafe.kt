@@ -12,7 +12,11 @@ class UserSafe {
     lateinit var pw: String
     lateinit var friends: List<String>
 
-    constructor(id: String?, profileSrc: String?, name: String?, bio: String?, exp: Long?, email: String?, pw: String?, friends: List<String>?) {
+    lateinit var questionsDone: List<Long>
+    lateinit var questionsPosted: List<Long>
+
+    constructor(id: String?, profileSrc: String?, name: String?, bio: String?, exp: Long?, email: String?,
+                pw: String?, friends: List<String>?, questionsDone: List<Long>?, questionsPosted: List<Long>?) {
         this.id = id
         if (profileSrc != null) {
             this.profileSrc = profileSrc
@@ -32,6 +36,12 @@ class UserSafe {
         }
         if (friends != null) {
             this.friends = friends
+        }
+        if (questionsDone != null) {
+            this.questionsDone = questionsDone
+        }
+        if (questionsPosted != null) {
+            this.questionsPosted = questionsPosted
         }
     }
 

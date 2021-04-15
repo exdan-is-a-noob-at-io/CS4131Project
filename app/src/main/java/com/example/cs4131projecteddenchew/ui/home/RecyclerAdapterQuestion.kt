@@ -9,9 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.FirebaseUtil
+import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFour.Fragment.navController
+import com.example.cs4131projecteddenchew.ui.question_suggest.MakeQuestionViewModel
+import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -55,10 +60,11 @@ class RecyclerAdapterQuestion(private val context: Context) :
                 val navController = Navigation.findNavController(itemView)
                 val position = adapterPosition
                 if (position == 0){
+                    MakeQuestionViewModel.postId.value = 0
                     navController.navigate(R.id.action_navigation_home_to_navigation_make_question)
                 }
                 else{
-                    navController.navigate(R.id.action_navigation_home_to_navigation_viewQuestions)
+                    FirebaseUtil.getQuestionsFromUser(adminViewModel.user_data.value)
                 }
             }
         }

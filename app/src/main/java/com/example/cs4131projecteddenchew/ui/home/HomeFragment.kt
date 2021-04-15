@@ -1,14 +1,20 @@
 package com.example.cs4131projecteddenchew.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFour
+import com.example.cs4131projecteddenchew.ui.question_suggest.MakeQuestionViewModel
 
 class HomeFragment : Fragment() {
 
@@ -53,5 +59,24 @@ class HomeFragment : Fragment() {
         recyclerViewDifficulty.setAdapter(adapterDifficulty)
         recyclerViewQuestion.setAdapter(adapterQuestion)
         recyclerViewDatabase.setAdapter(adapterDatabase)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //todo implement this
+        val resultObserver = Observer< ArrayList<Long> >{
+            result ->
+            Log.i("TAG", result.toString())
+
+            //so -1 cannot be typecasted as a LONG so I have to do this
+            var minusOne:Long = -1
+
+            if (result.size == 0){ }
+            else if (result[0] != minusOne){
+                val navController = view?.let { Navigation.findNavController(it) }
+                navController?.navigate(R.id.action_navigation_home_to_navigation_viewQuestions)
+            }
+        }
+        MakeQuestionViewModel.postedQuestions.observe(viewLifecycleOwner, resultObserver)
     }
 }

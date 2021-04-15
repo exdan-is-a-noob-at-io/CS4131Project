@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.ui.home.RecyclerAdapterDifficulty
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -21,7 +20,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ViewPublishedQuestionsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     lateinit var recyclerViewQuestions: RecyclerView
@@ -62,7 +60,6 @@ class ViewPublishedQuestionsFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment ViewPublishedQuestionsFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ViewPublishedQuestionsFragment().apply {

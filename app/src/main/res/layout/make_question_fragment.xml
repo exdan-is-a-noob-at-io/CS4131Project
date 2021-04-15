@@ -38,7 +38,8 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:textColor="@color/grey_20"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,7 +64,8 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:hint="eg: APMO 2019 Q3"
-                    android:textColorHint="@color/grey_50"/>
+                    android:textColorHint="@color/grey_50"
+                    android:textColor="@color/grey_20"/>
 
             </LinearLayout>
 
@@ -156,9 +158,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="numberDecimal"
                     android:hint="eg: 267"
-                    android:textColorHint="@color/grey_50"/>
+                    android:textColorHint="@color/grey_50"
+                    android:textColor="@color/grey_20"/>
 
             </LinearLayout>
 
@@ -183,7 +186,34 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:textColor="@color/grey_20"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:text="Tags:"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextTags"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/grey_80"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/grey_20"
+                android:textColorHint="@color/grey_50"
+                android:hint="Add your tags, separated by commas. \nExample: tag1, tag2,tag3 , tag 4"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -212,9 +242,36 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Question ID:"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/qnIDEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/grey_50"
+                    android:enabled="false"/>
+
+            </LinearLayout>
+
             <Button
                 android:layout_marginTop="20dp"
-                android:id="@+id/button2"
+                android:id="@+id/saveQuestionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save" />

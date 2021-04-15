@@ -14,15 +14,22 @@ import kotlin.collections.ArrayList
 
 class RecyclerAdapterCreatedQuestionList(private val context: Context) :
     RecyclerView.Adapter<RecyclerAdapterCreatedQuestionList.ViewHolder>() {
-    //todo change these.
     private val names = ArrayList<String>()
 
     private val descriptions = ArrayList<String>()
 
     init {
-        //pull data from db
-        names.add("Add Question! $\\pi \\neq 3.14$")
+
+        var postedQuestions = MakeQuestionViewModel.postedQuestionsPosts.value
+
+        names.add("Add Question!")
         descriptions.add("")
+
+        postedQuestions?.forEach { post->
+            names.add(post?.questionStatement!!)
+            descriptions.add(post?.answer!!)
+        }
+
     }
 
 

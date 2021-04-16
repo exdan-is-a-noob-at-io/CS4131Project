@@ -20,7 +20,7 @@ import com.example.cs4131projecteddenchew.model.User
 import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import kotlinx.android.synthetic.main.make_question_fragment.*
 import java.util.*
-import kotlin.collections.ArrayList
+import kotlin.math.min
 
 class makeQuestionFragment : Fragment() {
 
@@ -182,12 +182,58 @@ class makeQuestionFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (MakeQuestionViewModel.postId.value!! > 0){
-            qnIDEditText.setText(MakeQuestionViewModel.postId.value.toString())
-        }
-        else{
+        onStartResume()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        onStartResume()
+    }
+
+
+    //todo make the radio buttons work
+    fun onStartResume(){
+        Log.i("TAG", "onStartResume Called!")
+        var zero:Long = 0
+        var minusOne:Long = -1
+        var four:Long = 4
+        if (MakeQuestionViewModel.selectedPost.value?.id == zero || MakeQuestionViewModel.selectedPost.value?.id == minusOne){
             qnIDEditText.setText("-")
         }
+        else{
+            var currPost = MakeQuestionViewModel.selectedPost.value
+            Log.i("TAG", currPost.toString())
+            editTextQuestion.setText(currPost?.questionStatement)
+            sourceEditText.setText(currPost?.source)
+            if (currPost?.qnType?.equals(four) == true){
+                radioButtonRound2.isSelected = true
+                spinnerTargettedLevel.isEnabled = false
+                answerEditText.isEnabled = false
+                spinnerTargettedLevel.setAlpha(0.4f)
+            } else{
+                radioButtonRound1.isSelected = true
+                spinnerTargettedLevel.isEnabled = true
+                answerEditText.isEnabled = true
+                spinnerTargettedLevel.setAlpha(1.0f)
+
+                currPost?.qnType?.let { spinnerTargettedLevel.setSelection(it.toInt()) }
+                answerEditText.setText(currPost?.answer)
+            }
+
+            editTextExplaination.setText(currPost?.explaination)
+            editTextTags.setText(currPost?.tags?.let { getTags(it) })
+        }
+    }
+
+    fun getTags(tags:List<String>): String{
+        var out:String = ""
+        for (i in 0 until tags.size){
+            if (i != 0){
+                out += ", "
+            }
+            out += tags[i]
+        }
+        return out
     }
 
     fun getTags(string:String):ArrayList<String> {

@@ -17,6 +17,9 @@ class MakeQuestionViewModel : ViewModel() {
         val bufferPostedQuestions = ArrayList<Long>(Arrays.asList(-1))
         var postedQuestions = MutableLiveData<ArrayList<Long>>(ArrayList<Long>(Arrays.asList(-1)))
         var postedQuestionsPosts = MutableLiveData<ArrayList<Post>>(ArrayList<Post>())
+        val defaultPost = Post(0, "", "", "", 0, "", "", ArrayList<Long>(), ArrayList<String>(), false)
+        val newPost = Post(-1, "", "", "", 0, "", "", ArrayList<Long>(), ArrayList<String>(), false)
+        var selectedPost = MutableLiveData<Post> ( defaultPost )
     }
 
     var targettedLevel: ArrayList<String> = ArrayList<String>(Arrays.asList("Junior", "Senior", "Open", "Others"))

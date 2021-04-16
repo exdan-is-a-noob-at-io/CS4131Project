@@ -65,6 +65,14 @@ class RecyclerAdapterCreatedQuestionList(private val context: Context) :
 
             itemView.setOnClickListener { view ->
                 val position = adapterPosition
+                if (position == 0){
+                    MakeQuestionViewModel.selectedPost.value = MakeQuestionViewModel.defaultPost
+                    MakeQuestionViewModel.selectedPost.value = MakeQuestionViewModel.newPost
+                }
+                else{
+                    MakeQuestionViewModel.selectedPost.value = MakeQuestionViewModel.defaultPost
+                    MakeQuestionViewModel.selectedPost.value = MakeQuestionViewModel.postedQuestionsPosts.value?.get(position - 1)
+                }
             }
         }
     }

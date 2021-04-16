@@ -1,6 +1,7 @@
 package com.example.cs4131projecteddenchew.ui.question_suggest
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.FirebaseUtil
+import com.example.cs4131projecteddenchew.model.Post
 import com.example.cs4131projecteddenchew.ui.home.RecyclerAdapterDifficulty
+import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
+import kotlinx.android.synthetic.main.make_question_fragment.*
+import java.util.ArrayList
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -49,6 +57,22 @@ class ViewPublishedQuestionsFragment : Fragment() {
 
         var adapterQuestions = context?.let { RecyclerAdapterCreatedQuestionList(it) }
         recyclerViewQuestions.setAdapter(adapterQuestions)
+
+
+        val resultObserver = Observer<Post> {
+            result ->
+            var one:Long = 1
+            var minusOne:Long = -1
+            Log.i("TAG", result.toString())
+            if (result.id!! >= one){
+                findNavController().navigate(R.id.action_navigation_viewQuestions_to_navigation_make_question)
+            }
+            else if (result.id!! == minusOne){
+                findNavController().navigate(R.id.action_navigation_viewQuestions_to_navigation_make_question)
+            }
+        }
+
+        MakeQuestionViewModel.selectedPost.observe(viewLifecycleOwner, resultObserver)
     }
 
     companion object {

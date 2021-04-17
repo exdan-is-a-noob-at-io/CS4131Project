@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -75,6 +76,8 @@ class HomeFragment : Fragment() {
             else if (result[0] != minusOne){
                 val navController = view?.let { Navigation.findNavController(it) }
                 navController?.navigate(R.id.action_navigation_home_to_navigation_viewQuestions)
+            } else{
+                //Toast.makeText(context, "You have not Posted Anything Yet!", Toast.LENGTH_LONG).show()
             }
         }
         MakeQuestionViewModel.postedQuestions.observe(viewLifecycleOwner, resultObserver)

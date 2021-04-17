@@ -29,6 +29,7 @@ class RecyclerAdapterCreatedQuestionList(private val context: Context) :
             names.add(post?.questionStatement!!)
             descriptions.add(post?.answer!!)
         }
+        MakeQuestionViewModel.postedQuestions.value = ArrayList<Long>()
 
     }
 

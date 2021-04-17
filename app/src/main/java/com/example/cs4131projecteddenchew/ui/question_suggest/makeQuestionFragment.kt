@@ -168,18 +168,6 @@ class makeQuestionFragment : Fragment() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.getItemId()) {
-            android.R.id.home -> {
-                //todo why the hell this is not working
-                //todo where the hell is the toolbar
-                findNavController().navigate(R.id.action_navigation_make_question_to_navigation_home)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         onStartResume()
@@ -222,6 +210,8 @@ class makeQuestionFragment : Fragment() {
 
             editTextExplaination.setText(currPost?.explaination)
             editTextTags.setText(currPost?.tags?.let { getTags(it) })
+            qnIDEditText.setText(currPost?.id.toString())
+            MakeQuestionViewModel.selectedPost.value = MakeQuestionViewModel.defaultPost
         }
     }
 
@@ -260,5 +250,7 @@ class makeQuestionFragment : Fragment() {
 
         return out
     }
+
+
 
 }

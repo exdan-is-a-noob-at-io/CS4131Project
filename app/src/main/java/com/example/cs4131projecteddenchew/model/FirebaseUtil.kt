@@ -137,7 +137,9 @@ object FirebaseUtil {
                 var questionIDSet = ArrayList<Long>()
                 database.child("users").child(post.posterId!!).child("questionsPosted").get().addOnSuccessListener {
                     it.children.forEach{
-                        questionIDSet.add(it.value as Long)
+                        if (!questionIDSet.contains(it.value as Long)){
+                            questionIDSet.add(it.value as Long)
+                        }
                     }
                     post.id?.let { it1 -> questionIDSet.add(it1) }
 
@@ -168,16 +170,18 @@ object FirebaseUtil {
             database.child("users").child(user?.id!!).child("questionsPosted").get().addOnSuccessListener {
                 database.child("posts").get().addOnSuccessListener{ postsRoot ->
                     it.children.forEach{
-                        postIDs.add(it.value as Long)
+                        if (!postIDs.contains(it.value as Long)){
+                            postIDs.add(it.value as Long)
 
-                        //todo fix this agh
-                        Log.i("TAG", postsRoot.child(it.value.toString()).toString())
-                        var currentPost = postsRoot.child(it.value.toString()).getValue(Post::class.java)
-                        if (currentPost != null) {
-                            posts.add(currentPost)
+                            //todo fix this agh
+                            Log.i("TAG", postsRoot.child(it.value.toString()).toString())
+                            var currentPost = postsRoot.child(it.value.toString()).getValue(Post::class.java)
+                            if (currentPost != null) {
+                                posts.add(currentPost)
+                            }
+
+                            Log.e("TAG", it.value.toString() + "is a valid qn")
                         }
-
-                        Log.e("TAG", it.value.toString() + "is a valid qn")
                     }
                     MakeQuestionViewModel.postedQuestionsPosts.value = posts
                     MakeQuestionViewModel.postedQuestions.value = MakeQuestionViewModel.bufferPostedQuestions

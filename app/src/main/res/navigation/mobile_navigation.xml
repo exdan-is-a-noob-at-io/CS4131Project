@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_navigation_make_question_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_make_question_to_navigation_viewQuestions"
+            app:destination="@id/navigation_viewQuestions" />
     </fragment>
 
     <fragment

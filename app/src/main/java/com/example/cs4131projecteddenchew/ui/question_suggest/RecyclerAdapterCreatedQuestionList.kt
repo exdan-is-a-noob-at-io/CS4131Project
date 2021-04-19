@@ -1,6 +1,7 @@
 package com.example.cs4131projecteddenchew.ui.question_suggest
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ class RecyclerAdapterCreatedQuestionList(private val context: Context) :
         postedQuestions?.forEach { post->
             names.add(post?.questionStatement!!)
             descriptions.add(post?.answer!!)
+            Log.i("TAG", post.toString())
         }
         MakeQuestionViewModel.postedQuestions.value = ArrayList<Long>()
 

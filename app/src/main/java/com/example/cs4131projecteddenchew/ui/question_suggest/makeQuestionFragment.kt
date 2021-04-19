@@ -16,6 +16,7 @@ import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.model.FirebaseUtil
 import com.example.cs4131projecteddenchew.model.Post
+import com.example.cs4131projecteddenchew.model.RegexUtil
 import com.example.cs4131projecteddenchew.model.User
 import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import kotlinx.android.synthetic.main.make_question_fragment.*
@@ -78,9 +79,12 @@ class makeQuestionFragment : Fragment() {
 
         val resultObserver = Observer<Long> {
             result ->
-            if (result > 0){
+            Log.i("TAG", "Observer calling is fucking you over")
+            var zero:Long = 0
+            if (result.equals(zero)){}
+            else if (result > 0){
                 qnIDEditText.setText(result.toString())
-                var questionStatement:String = editTextQuestion.text.toString()
+                var questionStatement:String = RegexUtil.addBackSlash(editTextQuestion.text.toString())
 
                 if (!questionStatement.isEmpty()){
                     var source:String = sourceEditText.text.toString()
@@ -96,7 +100,7 @@ class makeQuestionFragment : Fragment() {
                         answer = answerEditText.text.toString()
                     }
 
-                    var explaination:String = editTextExplaination.text.toString()
+                    var explaination:String = RegexUtil.addBackSlash(editTextExplaination.text.toString())
                     var published:Boolean = (spinnerPublishingStatus.selectedItemPosition == 1)
                     var comments = ArrayList<Long>()
                     var tags = getTags(editTextTags.text.toString())
@@ -109,17 +113,18 @@ class makeQuestionFragment : Fragment() {
             }
             else{
                 qnIDEditText.setText("-")
+                Log.i("TAG", "Calling from observer")
             }
         }
 
         MakeQuestionViewModel.postId.observe(viewLifecycleOwner, resultObserver)
 
         saveQuestionButton.setOnClickListener {
-            if (qnIDEditText.text.toString().equals("-")){
+            if (qnIDEditText.text.toString().equals("-") || qnIDEditText.text.toString().isEmpty()){
                 MakeQuestionViewModel.postId.value = -1
                 FirebaseUtil.getPostID()
             } else {
-                var questionStatement:String = editTextQuestion.text.toString()
+                var questionStatement:String = RegexUtil.addBackSlash(editTextQuestion.text.toString())
                 var source:String = sourceEditText.text.toString()
                 var qnType:Long = 0
                 var answer = ""
@@ -132,7 +137,7 @@ class makeQuestionFragment : Fragment() {
                     answer = answerEditText.text.toString()
                 }
 
-                var explaination:String = editTextExplaination.text.toString()
+                var explaination:String = RegexUtil.addBackSlash(editTextExplaination.text.toString())
                 var published:Boolean = (spinnerPublishingStatus.selectedItemPosition == 1)
                 var comments = ArrayList<Long>()
                 var tags = getTags(editTextTags.text.toString())
@@ -143,6 +148,8 @@ class makeQuestionFragment : Fragment() {
                 FirebaseUtil.writeNewQuestion(post, context)
             }
         }
+
+        /* todo use some snackbar to tell the user when the post upload works */
     }
 
     public fun onRadioButtonClicked(view: View) {
@@ -178,6 +185,14 @@ class makeQuestionFragment : Fragment() {
         onStartResume()
     }
 
+    fun resetAll(){
+        editTextQuestion.setText("")
+        sourceEditText.setText("")
+        answerEditText.setText("")
+        editTextExplaination.setText("")
+        editTextTags.setText("")
+    }
+
 
     //todo make the radio buttons work
     fun onStartResume(){
@@ -185,8 +200,11 @@ class makeQuestionFragment : Fragment() {
         var zero:Long = 0
         var minusOne:Long = -1
         var four:Long = 4
-        if (MakeQuestionViewModel.selectedPost.value?.id == zero || MakeQuestionViewModel.selectedPost.value?.id == minusOne){
+        if (MakeQuestionViewModel.selectedPost.value?.id == zero){
+
+        } else if (MakeQuestionViewModel.selectedPost.value?.id == minusOne){
             qnIDEditText.setText("-")
+            MakeQuestionViewModel.selectedPost.value = MakeQuestionViewModel.defaultPost
         }
         else{
             var currPost = MakeQuestionViewModel.selectedPost.value

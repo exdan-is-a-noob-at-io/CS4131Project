@@ -40,7 +40,7 @@
                 android:paddingTop="10dp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/grey_20"
-                android:hint="You can use latex here!"
+                android:hint="You can use latex here! \n\nUse $$ eqn $$ for the equation to be in the next line\n\nFor latex, you may also want to use {} for any exponent that is more than 1 digit: for example $9^{10}$ instead of $9^10$"
                 android:textColorHint="@color/grey_50"/>
 
             <LinearLayout
@@ -190,7 +190,7 @@
                 android:paddingTop="10dp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/grey_20"
-                android:hint="Please don't use latex here!"
+                android:hint="You may use latex here too!"
                 android:textColorHint="@color/grey_50"/>
 
             <TextView

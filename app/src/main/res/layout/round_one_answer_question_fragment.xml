@@ -66,10 +66,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="numberDecimal"
                     android:hint="eg: 267"
-                    android:textColorHint="@color/grey_50"
-                    android:textColor="@color/grey_20"/>
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/grey_20"
+                    android:textColorHint="@color/grey_50" />
 
             </LinearLayout>
 
@@ -86,21 +86,21 @@
                 android:id="@+id/editTextAnswerStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="text"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@color/grey_80"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/grey_20"
+                android:focusable="false"
+                android:ems="10"
+                android:gravity="start|top"
                 android:hint="Status of Answer"
-                android:textColorHint="@color/grey_50"
-                android:editable="false"/>
+                android:inputType="text"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/grey_20"
+                android:textColorHint="@color/grey_50"/>
 
             <TextView
                 android:layout_marginTop="20dp"
@@ -130,28 +130,32 @@
                 android:clickable="false"
                 app:setTextColor="@color/grey_20"/>
 
+
             <LinearLayout
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:paddingBottom="10dp">
+
                 <Button
-                    android:layout_marginTop="20dp"
                     android:id="@+id/discussQuestionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Discuss"
-                    android:layout_marginRight="80dp"/>
-                <Button
                     android:layout_marginTop="20dp"
+                    android:layout_marginRight="80dp"
+                    android:text="Discuss" />
+
+                <Button
                     android:id="@+id/nextQuestionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="Next Question" />
 
             </LinearLayout>
-
 
             <TextView
                 android:layout_width="wrap_content"

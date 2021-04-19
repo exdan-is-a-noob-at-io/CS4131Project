@@ -63,11 +63,11 @@ class ViewPublishedQuestionsFragment : Fragment() {
             result ->
             var one:Long = 1
             var minusOne:Long = -1
-            Log.i("TAG", result.toString())
-            if (result.id!! >= one){
+            Log.i("TAG", "From observer" + result.id.toString() + result.toString())
+            if (result.id!! >= 1){
                 findNavController().navigate(R.id.action_navigation_viewQuestions_to_navigation_make_question)
             }
-            else if (result.id!! == minusOne){
+            else if (result.id!!.equals(minusOne)){
                 findNavController().navigate(R.id.action_navigation_viewQuestions_to_navigation_make_question)
             }
         }

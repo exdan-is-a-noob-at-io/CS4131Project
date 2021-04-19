@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
 class MakeQuestionViewModel : ViewModel() {
 
     companion object Test{
-        var postId:MutableLiveData<Long> = MutableLiveData(-1)
+        var postId:MutableLiveData<Long> = MutableLiveData(0)
         val bufferPostedQuestions = ArrayList<Long>(Arrays.asList(-1))
         var postedQuestions = MutableLiveData<ArrayList<Long>>(ArrayList<Long>(Arrays.asList(-1)))
         var postedQuestionsPosts = MutableLiveData<ArrayList<Post>>(ArrayList<Post>())

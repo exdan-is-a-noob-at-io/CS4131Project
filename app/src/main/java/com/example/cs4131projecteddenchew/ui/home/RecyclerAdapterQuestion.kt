@@ -60,7 +60,6 @@ class RecyclerAdapterQuestion(private val context: Context) :
                 val navController = Navigation.findNavController(itemView)
                 val position = adapterPosition
                 if (position == 0){
-                    MakeQuestionViewModel.postId.value = 0
                     navController.navigate(R.id.action_navigation_home_to_navigation_make_question)
                 }
                 else{

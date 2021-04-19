@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         //todo so this is where the action bar is
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //todo fix the backstack problem in practice
     }
 
     override fun onSupportNavigateUp(): Boolean {

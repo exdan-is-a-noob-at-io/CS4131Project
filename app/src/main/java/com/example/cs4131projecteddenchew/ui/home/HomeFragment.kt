@@ -14,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.Post
+import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuestionViewModel
 import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFour
 import com.example.cs4131projecteddenchew.ui.question_suggest.MakeQuestionViewModel
 
@@ -65,7 +67,7 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         //todo implement this
-        val resultObserver = Observer< ArrayList<Long> >{
+        val resultObserverMakeQuestion = Observer< ArrayList<Long> >{
             result ->
             Log.i("TAG", result.toString())
 
@@ -80,6 +82,28 @@ class HomeFragment : Fragment() {
                 //Toast.makeText(context, "You have not Posted Anything Yet!", Toast.LENGTH_LONG).show()
             }
         }
-        MakeQuestionViewModel.postedQuestions.observe(viewLifecycleOwner, resultObserver)
+        MakeQuestionViewModel.postedQuestions.observe(viewLifecycleOwner, resultObserverMakeQuestion)
+
+
+        val resultObserverAttemptQuestion = Observer<Post>{
+            result ->
+            Log.i("TAG", result.toString())
+
+            var minusOne:Long = -1
+            var four:Long = 4
+            val navController = view?.let { Navigation.findNavController(it) }
+
+            if (result.qnType == minusOne){
+
+            }
+            else if (result.qnType == four){
+                navController?.navigate(R.id.action_navigation_home_to_navigation_round_two_answer_question)
+            } else{
+                navController?.navigate(R.id.action_navigation_home_to_navigation_round_one_answer_question)
+            }
+
+
+        }
+        RoundOneAnswerQuestionViewModel.selectedPost.observe(viewLifecycleOwner, resultObserverAttemptQuestion)
     }
 }

@@ -1,6 +1,7 @@
 package com.example.cs4131projecteddenchew.ui.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.FirebaseUtil
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -56,7 +58,8 @@ class RecyclerAdapterDifficulty(private val context: Context) :
 
             itemView.setOnClickListener { view ->
                 val position = adapterPosition
-                //todo this
+                Log.i("TAG", "QUestion type is: " + position.toString())
+                FirebaseUtil.getNewQuestion(position.toLong(), context)
             }
         }
     }

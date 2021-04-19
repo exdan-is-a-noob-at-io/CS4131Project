@@ -25,11 +25,11 @@ class RecyclerAdapterDifficulty(private val context: Context) :
 
     //todo change images
     private val images = ArrayList<Int>(Arrays.asList(
-        R.drawable.temp_profile,
-        R.drawable.temp_profile,
-        R.drawable.temp_profile,
-        R.drawable.temp_profile,
-        R.drawable.temp_profile
+        R.drawable.basic_math_icon,
+        R.drawable.intermediate_math_icon,
+        R.drawable.advanced_math_icon_alt,
+        R.drawable.miscellaneous_math_icon,
+        R.drawable.pen_on_paper
     ))
 
 

@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.ui.question_suggest.RecyclerAdapterCreatedQuestionList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +25,10 @@ class ViewCommentsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var recyclerViewQuestions: RecyclerView
+    lateinit var layoutManagerQuestions: LinearLayoutManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +43,17 @@ class ViewCommentsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_view_comments, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerViewQuestions = view.findViewById(R.id.recycler_view_comments)
+        layoutManagerQuestions = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerViewQuestions.setLayoutManager(layoutManagerQuestions)
+
+        var adapterQuestions = context?.let { RecyclerAdapterCommentsSection(it) }
+        recyclerViewQuestions.setAdapter(adapterQuestions)
     }
 
     companion object {

@@ -20,7 +20,7 @@ class RecyclerAdapterDatabase(private val context: Context) :
 
 
     private val images = ArrayList<Int>(Arrays.asList(
-        R.drawable.ic_baseline_insert_drive_file_24
+        R.drawable.document
     ))
 
 

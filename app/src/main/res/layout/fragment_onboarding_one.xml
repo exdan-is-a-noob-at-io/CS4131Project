@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,9 +31,9 @@
         app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/grey_90">
+        android:backgroundTint="@color/main_blue_80">
 
         <include layout="@layout/card_layout_onboarding" />
     </androidx.cardview.widget.CardView>

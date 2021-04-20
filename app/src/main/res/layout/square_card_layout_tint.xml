@@ -6,7 +6,7 @@
     android:layout_height="200dp"
     android:id="@+id/card_view"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/grey_90"
+    app:cardBackgroundColor="@color/main_blue_80"
     app:cardCornerRadius="12dp"
     app:cardElevation="3dp"
     app:contentPadding="4dp"
@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/cardIconImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             app:layout_constraintBottom_toTopOf="@+id/sectionTypeTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

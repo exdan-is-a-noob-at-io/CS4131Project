@@ -9,22 +9,25 @@ import java.util.*
 class Comment {
     var id: Long? = null
     var comment: String? = null
+    var commenter:String? = null
     var timeString: String? = null
     var time: Date? = null
 
-    constructor(id: Long?, comment: String?, time: Date?) {
+    constructor(id: Long?, comment: String?, commenter:String?, time: Date?) {
         this.id = id
         this.comment = comment
         this.time = time
+        this.commenter = commenter
 
         val df: DateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
         this.timeString = df.format(time)
     }
 
-    constructor(id_: Long?, comment_: String?, timeString_: String) {
+    constructor(id_: Long?, comment_: String?, commenter:String?, timeString_: String) {
         this.id = id_
         this.comment = comment_
         this.timeString = timeString_
+        this.commenter = commenter
 
         val df: DateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 

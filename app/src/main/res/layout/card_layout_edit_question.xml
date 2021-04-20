@@ -12,7 +12,7 @@
     app:contentPadding="4dp"
     android:foreground="?selectableItemBackground"
     android:clickable="true"
-    android:backgroundTint="@color/grey_80">
+    android:backgroundTint="@color/main_blue_80">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
@@ -57,7 +57,7 @@
             android:id="@+id/statementTextView"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:backgroundTint="@color/grey_80"
+            android:backgroundTint="@color/main_blue_80"
             android:clickable="false"
             android:gravity="center"
             android:scaleX="1.1"

@@ -28,8 +28,8 @@ class RecyclerAdapterQuestion(private val context: Context) :
     ))
 
     private val images = ArrayList<Int>(Arrays.asList(
-        R.drawable.ic_baseline_add_24,
-        R.drawable.ic_baseline_edit_24
+        R.drawable.plus,
+        R.drawable.pencil
     ))
 
 

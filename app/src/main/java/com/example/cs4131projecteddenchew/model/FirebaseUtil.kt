@@ -124,6 +124,35 @@ object FirebaseUtil {
     }
 
 
+    //comments
+
+    fun addComment(comment: Comment, post:Post, context:Context){
+        try {
+            val database = FirebaseUtil.database
+            var commentsID = ArrayList<Long>()
+            database.child("posts").child(post.id.toString()).child("comments").get().addOnSuccessListener {
+                it.children.forEach{
+                    if (!commentsID.contains(it.value as Long)){
+                        commentsID.add(it.value as Long)
+                    }
+                }
+                if (!commentsID.contains(post.id)){
+                    commentsID.add(post.id!!)
+                }
+
+                database.child("posts").child(post.id.toString()).child("comments").setValue(commentsID)
+                database.child("comments").child(comment.id.toString()).setValue(comment)
+
+            }.addOnFailureListener {
+                Log.e("TAG", "write new post fails", it)
+            }
+        }
+        catch (it:Exception){
+            Log.e("TAG", "exception goes brr brr", it)
+        }
+    }
+
+
     /** creating posts **/
 
     fun addQuestionDone(userID:String, postID:Long, context:Context){
@@ -142,8 +171,6 @@ object FirebaseUtil {
 
                 database.child("users").child(userID).child("questionsDone").setValue(questionIDSet)
 
-
-                Toast.makeText(context, "Question Details Updated!", Toast.LENGTH_LONG).show()
             }.addOnFailureListener {
                 Log.e("TAG", "write new post fails", it)
             }
@@ -192,8 +219,10 @@ object FirebaseUtil {
                         var out:Long = 0
 
                         if (idNotDone.size == 0){
-                            Toast.makeText(context, "Next Problem is Recycled!", Toast.LENGTH_LONG).show()
-                            out = allIDs.random()
+                            if (allIDs.size != 0){
+                                Toast.makeText(context, "Next Problem is Recycled!", Toast.LENGTH_LONG).show()
+                                out = allIDs.random()
+                            }
                         } else{
                             out = idNotDone.random()
                         }
@@ -271,7 +300,7 @@ object FirebaseUtil {
                         if (!postIDs.contains(it.value as Long)){
                             postIDs.add(it.value as Long)
 
-                            //todo fix this agh
+                            //seems to work now yayy
                             Log.i("TAG", postsRoot.child(it.value.toString()).toString())
                             var currentPost = postsRoot.child(it.value.toString()).getValue(Post::class.java)
                             if (currentPost != null) {
@@ -302,6 +331,50 @@ object FirebaseUtil {
             MakeQuestionViewModel.postId.value = (it.childrenCount).toString().toLong()
         }.addOnFailureListener{
 
+        }
+    }
+
+    fun getCommentID(){
+        database.child("comments").get().addOnSuccessListener {
+            RoundOneAnswerQuestionViewModel.commentsID.value = (it.childrenCount).toString().toLong()
+        }.addOnFailureListener{
+
+        }
+    }
+
+    fun getComments(post: Post){
+        try {
+            val database = FirebaseUtil.database
+            var commentsID = ArrayList<Long>()
+            var comments = ArrayList<Comment>()
+            database.child("posts").child(post.id.toString()).child("comments").get().addOnSuccessListener {
+                it.children.forEach{
+                    if (!commentsID.contains(it.value as Long)){
+                        commentsID.add(it.value as Long)
+                    }
+                }
+
+                FirebaseUtil.database.child("comments").get().addOnSuccessListener{ commentsList ->
+                    commentsID.forEach{ commentID->
+                        var currentPost = commentsList.child(commentID.toString()).getValue(Comment::class.java)
+                        if (currentPost != null) {
+                            comments.add(currentPost)
+                        }
+                    }
+
+
+                    RoundOneAnswerQuestionViewModel.questionComments.value = comments
+                }.addOnFailureListener {
+                    Log.e("TAG", "get Questions info fails", it)
+                }
+
+
+            }.addOnFailureListener {
+                Log.e("TAG", "write new post fails", it)
+            }
+        }
+        catch (it:Exception){
+            Log.e("TAG", "exception goes brr brr", it)
         }
     }
 }

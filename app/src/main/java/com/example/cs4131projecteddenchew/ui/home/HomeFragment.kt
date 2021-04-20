@@ -66,7 +66,8 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        //todo implement this
+
+        onStartResume()
         val resultObserverMakeQuestion = Observer< ArrayList<Long> >{
             result ->
             Log.i("TAG", result.toString())
@@ -90,10 +91,11 @@ class HomeFragment : Fragment() {
             Log.i("TAG", result.toString())
 
             var minusOne:Long = -1
+            var zero:Long = 0
             var four:Long = 4
             val navController = view?.let { Navigation.findNavController(it) }
 
-            if (result.qnType == minusOne){
+            if (result.qnType == minusOne || RoundOneAnswerQuestionViewModel.previousPost.id != zero){
 
             }
             else if (result.qnType == four){
@@ -105,5 +107,14 @@ class HomeFragment : Fragment() {
 
         }
         RoundOneAnswerQuestionViewModel.selectedPost.observe(viewLifecycleOwner, resultObserverAttemptQuestion)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onStartResume()
+    }
+
+    fun onStartResume(){
+        RoundOneAnswerQuestionViewModel.previousPost = RoundOneAnswerQuestionViewModel.defaultPost
     }
 }

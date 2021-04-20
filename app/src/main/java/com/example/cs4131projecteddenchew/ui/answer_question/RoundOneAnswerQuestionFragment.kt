@@ -10,10 +10,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.Comment
 import com.example.cs4131projecteddenchew.model.FirebaseUtil
+import com.example.cs4131projecteddenchew.model.Post
 import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import katex.hourglass.`in`.mathlib.MathView
+import kotlinx.android.synthetic.main.fragment_view_comments.*
 
 class RoundOneAnswerQuestionFragment : Fragment() {
 
@@ -70,6 +76,54 @@ class RoundOneAnswerQuestionFragment : Fragment() {
 
             RoundOneAnswerQuestionViewModel.previousPost.qnType?.let { it1 -> FirebaseUtil.getNewQuestion(it1, requireContext()) }
         }
+
+        discussQuestionButton.setOnClickListener {
+            FirebaseUtil.getComments(RoundOneAnswerQuestionViewModel.previousPost)
+        }
+
+        floating_action_button.setOnClickListener{
+            //todo make popup window
+        }
+
+
+        val resultObserverAttemptQuestion = Observer<Post>{
+            result ->
+
+            var minusOne:Long = -1
+            var zero:Long = 0
+            var four:Long = 4
+
+            if (result.qnType == minusOne){
+
+            }
+            else if (result.qnType == four){
+
+            } else{
+                loadData()
+            }
+
+
+        }
+        RoundOneAnswerQuestionViewModel.selectedPost.observe(viewLifecycleOwner, resultObserverAttemptQuestion)
+
+        val resultObserverComments = Observer<ArrayList<Comment>>{
+            result ->
+
+            if (result.size == 0){
+                findNavController().navigate(R.id.action_navigation_round_one_answer_question_to_navigation_comments)
+            }
+            else if (result[0].comment.equals("")){
+
+            }
+            else{
+                findNavController().navigate(R.id.action_navigation_round_one_answer_question_to_navigation_comments)
+            }
+
+            Log.i("TAG", "part one works" + result.toString())
+
+
+        }
+        RoundOneAnswerQuestionViewModel.questionComments.observe(viewLifecycleOwner, resultObserverComments)
     }
 
     override fun onStart() {

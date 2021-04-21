@@ -36,5 +36,9 @@ class Comment {
 
     constructor()
 
+    override fun toString(): String {
+        return "Comment(id=$id, comment=$comment, commenter=$commenter, timeString=$timeString, time=$time)"
+    }
+
 
 }

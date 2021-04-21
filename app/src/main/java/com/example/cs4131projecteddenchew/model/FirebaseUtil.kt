@@ -136,12 +136,14 @@ object FirebaseUtil {
                         commentsID.add(it.value as Long)
                     }
                 }
-                if (!commentsID.contains(post.id)){
-                    commentsID.add(post.id!!)
+                if (!commentsID.contains(comment.id)){
+                    commentsID.add(comment.id!!)
                 }
 
                 database.child("posts").child(post.id.toString()).child("comments").setValue(commentsID)
                 database.child("comments").child(comment.id.toString()).setValue(comment)
+                RoundOneAnswerQuestionViewModel.commentsID.value = -1
+                Log.i("TAG", comment.toString())
 
             }.addOnFailureListener {
                 Log.e("TAG", "write new post fails", it)

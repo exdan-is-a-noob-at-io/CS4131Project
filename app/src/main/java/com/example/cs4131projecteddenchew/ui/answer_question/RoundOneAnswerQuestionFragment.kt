@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -35,6 +36,7 @@ class RoundOneAnswerQuestionFragment : Fragment() {
     lateinit var explainationMathView:MathView
     lateinit var discussQuestionButton:Button
     lateinit var nextQuestionButton:Button
+    lateinit var sourceTextViewRoundOne:TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -57,6 +59,7 @@ class RoundOneAnswerQuestionFragment : Fragment() {
         explainationMathView = view.findViewById(R.id.explainationMathView)
         discussQuestionButton = view.findViewById(R.id.discussQuestionButton)
         nextQuestionButton = view.findViewById(R.id.nextQuestionButton)
+        sourceTextViewRoundOne = view.findViewById(R.id.sourceTextViewRoundOne)
 
 
         submitQuestionButton.setOnClickListener {
@@ -81,10 +84,6 @@ class RoundOneAnswerQuestionFragment : Fragment() {
             FirebaseUtil.getComments(RoundOneAnswerQuestionViewModel.previousPost)
         }
 
-        floating_action_button.setOnClickListener{
-            //todo make popup window
-        }
-
 
         val resultObserverAttemptQuestion = Observer<Post>{
             result ->
@@ -99,6 +98,7 @@ class RoundOneAnswerQuestionFragment : Fragment() {
             else if (result.qnType == four){
 
             } else{
+                RoundOneAnswerQuestionViewModel.previousPost = RoundOneAnswerQuestionViewModel.selectedPost.value!!
                 loadData()
             }
 
@@ -139,7 +139,7 @@ class RoundOneAnswerQuestionFragment : Fragment() {
     fun loadData(){
         //todo fix this
         Log.i("TAG", "Load DATA Called")
-        var post = RoundOneAnswerQuestionViewModel.selectedPost.value
+        var post = RoundOneAnswerQuestionViewModel.previousPost
         var zero:Long = 0
         if (post?.id?.equals(zero) == true){
             Log.i("TAG", "question not loaded sucessfully!")
@@ -152,7 +152,8 @@ class RoundOneAnswerQuestionFragment : Fragment() {
         answerEditText.setText("")
         editTextAnswerStatus.setText("")
         explainationMathView.setDisplayText("")
-        RoundOneAnswerQuestionViewModel.previousPost = RoundOneAnswerQuestionViewModel.selectedPost.value!!
+        sourceTextViewRoundOne.setText("Source: " + post.source)
+
         RoundOneAnswerQuestionViewModel.selectedPost.value = RoundOneAnswerQuestionViewModel.defaultPost
     }
 

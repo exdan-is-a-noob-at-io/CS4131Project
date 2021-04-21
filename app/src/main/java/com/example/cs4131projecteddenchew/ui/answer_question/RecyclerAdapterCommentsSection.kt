@@ -16,17 +16,22 @@ import kotlin.collections.ArrayList
 
 class RecyclerAdapterCommentsSection(private val context: Context) :
     RecyclerView.Adapter<RecyclerAdapterCommentsSection.ViewHolder>() {
+
+
     private val names = ArrayList<String>()
 
     private val descriptions = ArrayList<String>()
+
+    private val time = ArrayList<String>()
 
     init {
 
         var postedComments = RoundOneAnswerQuestionViewModel.questionComments.value
 
         postedComments?.forEach { comment->
-            names.add(comment.commenter!!)
-            descriptions.add(comment.comment!!)
+            names.add(0, comment.commenter!!)
+            descriptions.add(0, comment.comment!!)
+            time.add(0, comment.timeString!!)
         }
 
 
@@ -34,6 +39,12 @@ class RecyclerAdapterCommentsSection(private val context: Context) :
 
     }
 
+
+    fun addObject(comment:Comment){
+        names.add(0, comment.commenter!!)
+        descriptions.add(0, comment.comment!!)
+        time.add(0, comment.timeString!!)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v: View =
@@ -44,6 +55,7 @@ class RecyclerAdapterCommentsSection(private val context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.TextViewPostedBy.text = names[position] + " says:"
         holder.commentTextView.text = descriptions[position]
+        holder.TextViewTime.text = "posted on " + time[position]
     }
 
     override fun getItemCount(): Int {
@@ -53,10 +65,12 @@ class RecyclerAdapterCommentsSection(private val context: Context) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var TextViewPostedBy:TextView
         var commentTextView:TextView
+        var TextViewTime:TextView
 
         init {
             TextViewPostedBy = itemView.findViewById(R.id.TextViewPostedBy)
             commentTextView = itemView.findViewById(R.id.commentTextView)
+            TextViewTime = itemView.findViewById(R.id.textViewTime)
         }
     }
 }

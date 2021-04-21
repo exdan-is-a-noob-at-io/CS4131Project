@@ -28,6 +28,10 @@ class User {
         public fun encryptVal(value:String?):String?{
             return aes.encrypt(value, key)
         }
+
+        public fun decryptVal(value:String?):String?{
+            return aes.decrypt(value, key)
+        }
     }
 
     constructor(){

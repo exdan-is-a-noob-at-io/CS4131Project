@@ -99,8 +99,10 @@ class HomeFragment : Fragment() {
 
             }
             else if (result.qnType == four){
+                RoundOneAnswerQuestionViewModel.previousPost = RoundOneAnswerQuestionViewModel.selectedPost.value!!
                 navController?.navigate(R.id.action_navigation_home_to_navigation_round_two_answer_question)
             } else{
+                RoundOneAnswerQuestionViewModel.previousPost = RoundOneAnswerQuestionViewModel.selectedPost.value!!
                 navController?.navigate(R.id.action_navigation_home_to_navigation_round_one_answer_question)
             }
 

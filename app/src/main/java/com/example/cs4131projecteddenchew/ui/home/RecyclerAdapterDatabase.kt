@@ -1,6 +1,7 @@
 package com.example.cs4131projecteddenchew.ui.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.ui.database.DatabaseViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,7 +51,8 @@ class RecyclerAdapterDatabase(private val context: Context) :
 
             itemView.setOnClickListener { view ->
                 val position = adapterPosition
-                //todo finish this; type of qn is equal to position (junior r1 is 0, senior r1 is 1, etc)
+                DatabaseViewModel.callInSignal.value = 0
+                DatabaseViewModel.callInSignal.value = 1
             }
         }
     }

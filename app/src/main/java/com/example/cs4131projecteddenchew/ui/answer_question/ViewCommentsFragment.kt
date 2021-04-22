@@ -126,7 +126,7 @@ class ViewCommentsFragment : Fragment() {
 
                     if (comment.comment.equals("")) return@Observer
                     Log.i("TAG", comment.toString())
-                    FirebaseUtil.addComment(comment, RoundOneAnswerQuestionViewModel.previousPost, requireContext())
+                    FirebaseUtil.addComment(comment, RoundOneAnswerQuestionViewModel.previousPost, requireContext(), adminViewModel.user_data.value?.id!!)
                     adapterComments?.addObject(comment)
                     adapterComments?.notifyDataSetChanged()
                     Log.i("TAG", "Function Closing")

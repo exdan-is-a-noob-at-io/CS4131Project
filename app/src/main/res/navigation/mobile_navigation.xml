@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_round_two_answer_question"
             app:destination="@id/navigation_round_two_answer_question" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_database"
+            app:destination="@id/navigation_database" />
     </fragment>
 
     <fragment
@@ -85,5 +88,28 @@
         android:id="@+id/navigation_comments"
         android:name="com.example.cs4131projecteddenchew.ui.answer_question.ViewCommentsFragment"
         android:label="Comments"
-        tools:layout="@layout/fragment_view_comments" />
+        tools:layout="@layout/fragment_view_comments" >
+        <action
+            android:id="@+id/action_navigation_comments_to_navigation_round_two_answer_question"
+            app:destination="@id/navigation_round_two_answer_question" />
+        <action
+            android:id="@+id/action_navigation_comments_to_navigation_round_one_answer_question"
+            app:destination="@id/navigation_round_one_answer_question" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_database"
+        android:name="com.example.cs4131projecteddenchew.ui.database.DatabaseFragment"
+        android:label="Collections"
+        tools:layout="@layout/database_fragment" >
+        <action
+            android:id="@+id/action_navigation_database_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_database_to_navigation_round_one_answer_question"
+            app:destination="@id/navigation_round_one_answer_question" />
+        <action
+            android:id="@+id/action_navigation_database_to_navigation_round_two_answer_question"
+            app:destination="@id/navigation_round_two_answer_question" />
+    </fragment>
 </navigation>

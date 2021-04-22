@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuestionViewModel
+import com.example.cs4131projecteddenchew.ui.database.DatabaseViewModel
 import com.example.cs4131projecteddenchew.ui.home.HomeViewModel
 import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFourLogin
 import com.example.cs4131projecteddenchew.ui.question_suggest.MakeQuestionViewModel
@@ -123,10 +124,27 @@ object FirebaseUtil {
         adminViewModel.id.value = out
     }
 
+    fun addPoints(points:Long, userID:String){
+        try {
+            val database = FirebaseUtil.database
+            var questionIDSet = ArrayList<Long>()
+            database.child("users").child(userID).child("exp").get().addOnSuccessListener {
+                var newExp:Long = it.value.toString().toLong() + points
+                database.child("users").child(userID).child("exp").setValue(newExp)
+
+            }.addOnFailureListener {
+                Log.e("TAG", "write new post fails", it)
+            }
+        }
+        catch (it:Exception){
+            Log.e("TAG", "exception goes brr brr", it)
+        }
+    }
+
 
     //comments
 
-    fun addComment(comment: Comment, post:Post, context:Context){
+    fun addComment(comment: Comment, post:Post, context:Context, userID:String){
         try {
             val database = FirebaseUtil.database
             var commentsID = ArrayList<Long>()
@@ -143,6 +161,10 @@ object FirebaseUtil {
                 database.child("posts").child(post.id.toString()).child("comments").setValue(commentsID)
                 database.child("comments").child(comment.id.toString()).setValue(comment)
                 RoundOneAnswerQuestionViewModel.commentsID.value = -1
+                /**Gamification**/
+                addPoints(2, post.posterId!!)
+                addPoints(2, userID)
+
                 Log.i("TAG", comment.toString())
 
             }.addOnFailureListener {
@@ -169,6 +191,12 @@ object FirebaseUtil {
                 }
                 if (!questionIDSet.contains(postID)){
                     questionIDSet.add(postID)
+                    /**Gamification**/
+                    addPoints(300, userID)
+                }
+                else{
+                    /**Gamification**/
+                    addPoints(26, userID)
                 }
 
                 database.child("users").child(userID).child("questionsDone").setValue(questionIDSet)
@@ -269,6 +297,8 @@ object FirebaseUtil {
                     }
                     if (!questionIDSet.contains(post.id)){
                         post.id?.let { it1 -> questionIDSet.add(it1) }
+                        /**Gamification**/
+                        addPoints(50, post.posterId!!)
                     }
 
                     database.child("users").child(post.posterId!!).child("questionsPosted").setValue(questionIDSet)
@@ -378,5 +408,66 @@ object FirebaseUtil {
         catch (it:Exception){
             Log.e("TAG", "exception goes brr brr", it)
         }
+    }
+
+    fun getQuestionFromTags(tags:String){
+        try {
+            val database = FirebaseUtil.database
+            database.child("posts").get().addOnSuccessListener { allPosts->
+
+                var taggedQuestionsArrayList = ArrayList<Post>()
+
+                var tagsArrayList = getTags(tags)
+
+                allPosts.children.forEach{
+
+                    var noEqual = 0
+                    tagsArrayList.forEach(){ tag->
+                        noEqual = 0
+                        if (it.child("tags").children.contains(tag)){
+                            noEqual += 1
+                        }
+                    }
+
+                    if (noEqual.equals(tagsArrayList.size)){
+                        it.getValue(Post::class.java)?.let { it1 -> taggedQuestionsArrayList.add(it1) }
+                    }
+                }
+
+                DatabaseViewModel.callInSignal.value = 0
+                DatabaseViewModel.callInSignal.value = 1
+
+            }.addOnFailureListener {
+                Log.e("TAG", "Error", it)
+            }
+        }
+        catch (it:Exception){
+            Log.e("TAG", "exception goes brr brr", it)
+        }
+    }
+
+    fun getTags(string:String): java.util.ArrayList<String> {
+        var out: java.util.ArrayList<String> = java.util.ArrayList()
+
+
+        Log.i("TAG", string)
+
+        var inString = string
+
+
+        var scanner = Scanner(inString)
+        scanner.useDelimiter(",")
+        while (scanner.hasNext()){
+            var tag = scanner.next()
+            Log.i("TAG", tag)
+            if (!out.contains(tag.trim())  &&  !tag.isBlank()){
+                out.add(tag.trim())
+            }
+        }
+        scanner.close()
+
+        Log.i("TAG", out.toString())
+
+        return out
     }
 }

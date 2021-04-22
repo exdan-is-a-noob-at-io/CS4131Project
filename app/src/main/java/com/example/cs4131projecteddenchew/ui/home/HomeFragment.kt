@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.model.Post
 import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuestionViewModel
+import com.example.cs4131projecteddenchew.ui.database.DatabaseViewModel
 import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFour
 import com.example.cs4131projecteddenchew.ui.question_suggest.MakeQuestionViewModel
 
@@ -109,6 +110,27 @@ class HomeFragment : Fragment() {
 
         }
         RoundOneAnswerQuestionViewModel.selectedPost.observe(viewLifecycleOwner, resultObserverAttemptQuestion)
+
+        val resultObserverDatabase = Observer<Int>{
+                result ->
+            Log.i("TAG", result.toString())
+
+            var minusOne:Long = -1
+            var zero:Long = 0
+            var four:Long = 4
+            val navController = view?.let { Navigation.findNavController(it) }
+
+
+            //todo fix this; relate this to sth else
+            if (result == 1){
+                navController?.navigate(R.id.action_navigation_home_to_navigation_database)
+                Log.i("TAG", result.toString())
+                DatabaseViewModel.callInSignal.value = 0
+            }
+
+
+        }
+        DatabaseViewModel.callInSignal.observe(viewLifecycleOwner, resultObserverDatabase)
     }
 
     override fun onResume() {

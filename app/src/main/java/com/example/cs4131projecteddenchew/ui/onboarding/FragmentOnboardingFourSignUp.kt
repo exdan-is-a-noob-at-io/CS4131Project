@@ -87,7 +87,6 @@ class FragmentOnboardingFourSignUp : Fragment()  {
         textView.movementMethod = LinkMovementMethod.getInstance()
         textView.highlightColor = Color.TRANSPARENT
 
-        //todo make the option for the pw hidden
 
 
         name.doAfterTextChanged {

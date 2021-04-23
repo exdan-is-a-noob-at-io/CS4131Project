@@ -7,7 +7,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DatabaseViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
 
     companion object Test{
         val defaultPost = Post(0, "", "", "", 0, "", "", ArrayList<Long>(), ArrayList<String>(), false)
@@ -15,7 +14,7 @@ class DatabaseViewModel : ViewModel() {
         var selectedPost = MutableLiveData<Post> ( defaultPost )
         val bufferPostedQuestions = ArrayList<Post>(Arrays.asList(defaultPost))
         val zeroPostedQuestions = ArrayList<Post>(ArrayList<Post>())
-        var tagedQuestions = MutableLiveData<ArrayList<Post>>(bufferPostedQuestions)
+        var tagedQuestions = MutableLiveData<ArrayList<Post>>(zeroPostedQuestions)
         var callInSignal = MutableLiveData<Int>(0)
     }
 }

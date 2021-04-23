@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
 
     private val SPLASH_TIME_OUT = 3000
 
-    //todo splash screen design
+    //todo please actually do the splash screen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)

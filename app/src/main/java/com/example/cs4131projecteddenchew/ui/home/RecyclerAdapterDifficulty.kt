@@ -23,7 +23,6 @@ class RecyclerAdapterDifficulty(private val context: Context) :
         "Round 2"
     ))
 
-    //todo change images
     private val images = ArrayList<Int>(Arrays.asList(
         R.drawable.basic_math_icon,
         R.drawable.intermediate_math_icon,

@@ -43,7 +43,6 @@ class makeQuestionFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MakeQuestionViewModel::class.java)
-        // TODO: Use the ViewModel
 
         spinnerAdapterTargetted=
             context?.let { ArrayAdapter<String>(

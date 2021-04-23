@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -420,22 +421,33 @@ object FirebaseUtil {
                 var tagsArrayList = getTags(tags)
 
                 allPosts.children.forEach{
+                    if ((it.child("published").value == true)){
+                        var noEqual = 0
+                        var tagsInPost = it.child("tags").getValue<List<String>>()
+                        tagsArrayList.forEach(){ tag->
+                            if (tagsInPost != null) {
+                                tagsInPost.forEach{ tag_ ->
 
-                    var noEqual = 0
-                    tagsArrayList.forEach(){ tag->
-                        noEqual = 0
-                        if (it.child("tags").children.contains(tag)){
-                            noEqual += 1
+                                    //todo fuzzy wuzzy?
+                                    if (tag_.trim().equals(tag.trim(), ignoreCase = true)){
+                                        noEqual += 1
+                                    }
+                                }
+                            }
+
+                            //Log.i("TAG", it.getValue(Post::class.java).toString() + noEqual.toString())
+                        }
+
+
+                        if (noEqual.equals(tagsArrayList.size)){
+                            it.getValue(Post::class.java)?.let { it1 -> taggedQuestionsArrayList.add(it1) }
                         }
                     }
 
-                    if (noEqual.equals(tagsArrayList.size)){
-                        it.getValue(Post::class.java)?.let { it1 -> taggedQuestionsArrayList.add(it1) }
-                    }
                 }
 
-                DatabaseViewModel.callInSignal.value = 0
-                DatabaseViewModel.callInSignal.value = 1
+                DatabaseViewModel.tagedQuestions.value = DatabaseViewModel.bufferPostedQuestions
+                DatabaseViewModel.tagedQuestions.value = taggedQuestionsArrayList
 
             }.addOnFailureListener {
                 Log.e("TAG", "Error", it)

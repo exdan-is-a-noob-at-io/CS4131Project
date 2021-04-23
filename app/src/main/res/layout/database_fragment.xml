@@ -13,14 +13,39 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayoutDatabase"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <SearchView
-                android:id="@+id/simpleSearchView"
+            <EditText
+                android:id="@+id/editTextTags"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                android:drawableStart="@drawable/ic_baseline_search_24"
+                android:drawableTint="@color/grey_20"
+                android:layout_margin="20dp"
+                android:drawablePadding="10dp"
+                android:hint="Search Here!"
+                android:textColorHint="@color/grey_50"
+                android:textColor="@color/grey_20"/>
+
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:text="Search!"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_database"

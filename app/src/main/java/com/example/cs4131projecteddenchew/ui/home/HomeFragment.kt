@@ -121,11 +121,11 @@ class HomeFragment : Fragment() {
             val navController = view?.let { Navigation.findNavController(it) }
 
 
-            //todo fix this; relate this to sth else
             if (result == 1){
+                DatabaseViewModel.callInSignal.value = 0
+                DatabaseViewModel.tagedQuestions.value = DatabaseViewModel.zeroPostedQuestions
                 navController?.navigate(R.id.action_navigation_home_to_navigation_database)
                 Log.i("TAG", result.toString())
-                DatabaseViewModel.callInSignal.value = 0
             }
 
 
@@ -140,5 +140,6 @@ class HomeFragment : Fragment() {
 
     fun onStartResume(){
         RoundOneAnswerQuestionViewModel.previousPost = RoundOneAnswerQuestionViewModel.defaultPost
+        DatabaseViewModel.tagedQuestions.value = DatabaseViewModel.zeroPostedQuestions
     }
 }

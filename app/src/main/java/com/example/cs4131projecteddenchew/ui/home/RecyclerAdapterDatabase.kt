@@ -15,7 +15,6 @@ import kotlin.collections.ArrayList
 
 class RecyclerAdapterDatabase(private val context: Context) :
     RecyclerView.Adapter<RecyclerAdapterDatabase.ViewHolder>() {
-    //todo change these.
     private val names = ArrayList<String>(Arrays.asList(
         "View All Qns!"
     ))

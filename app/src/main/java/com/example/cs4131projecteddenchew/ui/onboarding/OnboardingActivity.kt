@@ -24,7 +24,6 @@ class OnboardingActivity : AppCompatActivity() {
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
 
         //TODO actually make the designs for the onboarding
-        //TODO Login for onboarding four
 
         // Add All Fragments to ViewPager
         viewPagerAdapter.addFragment(FragmentOnboardingOne())

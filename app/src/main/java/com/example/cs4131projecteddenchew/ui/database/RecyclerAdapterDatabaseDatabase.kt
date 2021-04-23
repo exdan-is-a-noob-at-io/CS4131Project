@@ -8,37 +8,50 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuestionViewModel
 import katex.hourglass.`in`.mathlib.MathView
 import kotlin.collections.ArrayList
 
 class RecyclerAdapterDatabaseDatabase(private val context: Context) :
     RecyclerView.Adapter<RecyclerAdapterDatabaseDatabase.ViewHolder>() {
-    private val names = ArrayList<String>()
 
-    private val descriptions = ArrayList<String>()
+    companion object Test{
+        private val names = ArrayList<String>()
+
+        private val descriptions = ArrayList<String>()
+
+
+
+        fun loadData(){
+            names.removeAll(names)
+            descriptions.removeAll(descriptions)
+            DatabaseViewModel.tagedQuestions.value?.forEach { post->
+                names.add(post?.questionStatement!!)
+                post?.tags?.let { getTags(it) }?.let { descriptions.add(it) }
+                //Log.i("TAG", post.toString())
+            }
+
+            Log.i("TAG", names.toString())
+            Log.i("TAG", descriptions.toString())
+        }
+
+        fun getTags(tags:List<String>): String{
+            var out:String = ""
+            for (i in 0 until tags.size){
+                if (i != 0){
+                    out += ", "
+                }
+                out += tags[i]
+            }
+            return out
+        }
+    }
 
     init {
-
-        var tagedQuestions = DatabaseViewModel.tagedQuestions.value
-
-        tagedQuestions?.forEach { post->
-            names.add(post?.questionStatement!!)
-            post?.tags?.let { getTags(it) }?.let { descriptions.add(it) }
-            //Log.i("TAG", post.toString())
-        }
-
+        loadData()
     }
 
-    fun getTags(tags:List<String>): String{
-        var out:String = ""
-        for (i in 0 until tags.size){
-            if (i != 0){
-                out += ", "
-            }
-            out += tags[i]
-        }
-        return out
-    }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -73,14 +86,8 @@ class RecyclerAdapterDatabaseDatabase(private val context: Context) :
 
             itemView.setOnClickListener { view ->
                 val position = adapterPosition
-                if (position == 0){
-                    DatabaseViewModel.selectedPost.value = DatabaseViewModel.defaultPost
-                    DatabaseViewModel.selectedPost.value = DatabaseViewModel.newPost
-                }
-                else{
-                    DatabaseViewModel.selectedPost.value = DatabaseViewModel.defaultPost
-                    DatabaseViewModel.selectedPost.value = DatabaseViewModel.tagedQuestions.value?.get(position - 1)
-                }
+                RoundOneAnswerQuestionViewModel.selectedPost.value = RoundOneAnswerQuestionViewModel.defaultPost
+                RoundOneAnswerQuestionViewModel.selectedPost.value = DatabaseViewModel.tagedQuestions.value?.get(position)
             }
         }
     }

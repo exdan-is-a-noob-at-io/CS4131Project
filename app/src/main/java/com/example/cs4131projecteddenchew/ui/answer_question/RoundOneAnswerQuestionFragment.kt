@@ -46,7 +46,6 @@ class RoundOneAnswerQuestionFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RoundOneAnswerQuestionViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -137,7 +136,6 @@ class RoundOneAnswerQuestionFragment : Fragment() {
     }
 
     fun loadData(){
-        //todo fix this
         Log.i("TAG", "Load DATA Called")
         var post = RoundOneAnswerQuestionViewModel.previousPost
         var zero:Long = 0

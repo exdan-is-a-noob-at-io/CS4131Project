@@ -38,4 +38,11 @@
         <item name="queryHint">"Search Here!"</item>
     </style>
 
+
+    <style name="Theme.CS4131ProjectEddenChew.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.CS4131ProjectEddenChew.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.CS4131ProjectEddenChew.DarkActionBar.BackButton" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
 </resources>

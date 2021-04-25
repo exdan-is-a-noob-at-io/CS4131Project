@@ -1,6 +1,7 @@
 package com.example.cs4131projecteddenchew.model
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -9,6 +10,7 @@ import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuest
 import com.example.cs4131projecteddenchew.ui.database.DatabaseViewModel
 import com.example.cs4131projecteddenchew.ui.home.HomeViewModel
 import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFourLogin
+import com.example.cs4131projecteddenchew.ui.profile.ProfileViewModel
 import com.example.cs4131projecteddenchew.ui.question_suggest.MakeQuestionViewModel
 import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import com.google.firebase.database.DataSnapshot
@@ -43,6 +45,22 @@ object FirebaseUtil {
             if (STORAGE == null) STORAGE = Firebase.storage
             return STORAGE!!
         }
+
+
+    fun uploadImage(photoUri: Uri) {
+        val storageRef = storage.reference
+        val imageRef = storageRef.child("images/${adminViewModel.user_data.value?.id}.jpg")
+
+        val uploadTask = imageRef.putFile(photoUri)
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+            // nothing to be implemented
+        }.addOnSuccessListener {
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+        }
+    }
 
 
 
@@ -132,7 +150,7 @@ object FirebaseUtil {
             database.child("users").child(userID).child("exp").get().addOnSuccessListener {
                 var newExp:Long = it.value.toString().toLong() + points
                 database.child("users").child(userID).child("exp").setValue(newExp)
-
+                ProfileViewModel.exp = newExp
             }.addOnFailureListener {
                 Log.e("TAG", "write new post fails", it)
             }
@@ -222,10 +240,10 @@ object FirebaseUtil {
                 var minusOne:Long = -1
 
                 if (adminViewModel.user_data.value?.id != null){
-                    database.child("users").child(adminViewModel.user_data.value?.id!!).child("questionsSolved").get()
+                    database.child("users").child(adminViewModel.user_data.value?.id!!).child("questionsDone").get()
                             .addOnSuccessListener { solvedQuestions ->
                         solvedQuestions.children.forEach{
-                            it.getValue(Post::class.java)?.id?.let { it1 -> solvedQuestionsArrayList.add(it1) }
+                            solvedQuestionsArrayList.add(it.getValue(Long::class.java)!!)
                         }
                         allPosts.children.forEach{
                             Log.i("TAG", it.value.toString())
@@ -416,6 +434,8 @@ object FirebaseUtil {
             val database = FirebaseUtil.database
             database.child("posts").get().addOnSuccessListener { allPosts->
 
+
+                var taggedQuestionsIDArrayList = ArrayList<Long>()
                 var taggedQuestionsArrayList = ArrayList<Post>()
 
                 var tagsArrayList = getTags(tags)

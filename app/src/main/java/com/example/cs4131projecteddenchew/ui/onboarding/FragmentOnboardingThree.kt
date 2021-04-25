@@ -1,12 +1,14 @@
 package com.example.cs4131projecteddenchew.ui.onboarding
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class FragmentOnboardingThree : Fragment() {
@@ -30,6 +32,8 @@ class FragmentOnboardingThree : Fragment() {
         super.onStart()
         val activity:OnboardingActivity = activity as OnboardingActivity
         activity.showTabLayout()
+
+        //todo fragment 3 logs me in
     }
 
     override fun onResume() {

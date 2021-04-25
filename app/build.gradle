@@ -80,4 +80,13 @@ dependencies {
 
     //KATEX AKA latex 
     implementation 'in.hourglass.mathrender:katexmathview:1.0.3'
+
+
+    //image view stuff
+    implementation "com.karumi:dexter:5.0.0"
+
+    implementation 'com.github.yalantis:ucrop:2.2.6-native'
+
+    // circular imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

@@ -13,10 +13,10 @@ object GamificationUtil {
     ))
 
     fun getLevel(exp:Long):Long{
-        var out:Long = 1
+        var out:Long = 0
         var input = exp
         while (input >= 0){
-            input -= levels[(out-1).toInt()]
+            input -= levels[out.toInt()]
             out+=1
         }
         return out
@@ -33,5 +33,15 @@ object GamificationUtil {
             out+=1
         }
         return -1
+    }
+
+    fun getLevelExp(exp:Long):Long{
+        var out = 1
+        var input = exp
+        while (input >= 0){
+            input -= levels[out-1]
+            out+=1
+        }
+        return levels[out-1]
     }
 }

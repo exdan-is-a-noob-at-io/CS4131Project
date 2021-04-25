@@ -49,11 +49,11 @@ class SplashActivity : AppCompatActivity() {
             else{
                 //viewModel.writeToFile(""); //resets account details storage
                 Log.i("TAG", "Starting Activity with id " + result.id)
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+                startActivityForResult(Intent(this, MainActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }, 0)
             }
-
-
-            //todo change it so you cant go back; as per greenpass
+            
         }
 
         adminViewModel.user_data.observe(this, resultObserver)

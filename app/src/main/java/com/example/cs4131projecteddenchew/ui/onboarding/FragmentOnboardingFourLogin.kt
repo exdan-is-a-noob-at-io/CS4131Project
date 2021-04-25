@@ -104,12 +104,14 @@ class FragmentOnboardingFourLogin : Fragment()  {
             if (!result.id.equals("-2")){
                 viewModel.writeToFile()
                 Toast.makeText(context, "You Are Logged In!!", Toast.LENGTH_LONG).show()
-                startActivity(Intent(context, MainActivity::class.java))
+
+                startActivityForResult(Intent(activity, MainActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }, 0)
             }
 
 
 
-            //todo change it so you cant go back; as per greenpass
         }
 
         adminViewModel.user_data.observe(viewLifecycleOwner, resultObserver)

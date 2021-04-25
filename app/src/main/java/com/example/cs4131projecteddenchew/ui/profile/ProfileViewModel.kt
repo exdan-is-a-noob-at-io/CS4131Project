@@ -10,4 +10,8 @@ class ProfileViewModel : ViewModel() {
         value = "This is notifications Fragment"
     }
     val text: LiveData<String> = _text
+
+    companion object Test{
+        var exp:Long = 0
+    }
 }

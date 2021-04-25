@@ -1,6 +1,7 @@
 package com.example.cs4131projecteddenchew.ui.onboarding
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.cs4131projecteddenchew.R
 import com.google.android.material.tabs.TabLayout
 import androidx.fragment.app.FragmentManager
+import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
 
@@ -64,5 +66,15 @@ class OnboardingActivity : AppCompatActivity() {
         fun addFragment(fragment: Fragment) {
             mList.add(fragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("TAG", adminViewModel.user_data.value.toString())
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("TAG", adminViewModel.user_data.value.toString())
     }
 }

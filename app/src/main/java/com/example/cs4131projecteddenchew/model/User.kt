@@ -155,6 +155,9 @@ class User {
         userSafe = UserSafe(id, profileSrc, this.name, bio, exp, this.email, this.pw, friends, questionsDone, questionsPosted)
     }
 
+    override fun toString(): String {
+        return "User(id=$id, profileSrc=$profileSrc, name=$name, bio=$bio, exp=$exp, email=$email, pw=$pw, friends=$friends, questionsDone=$questionsDone, questionsPosted=$questionsPosted, nameDecrypted=$nameDecrypted, emailDecrypted=$emailDecrypted, pwDecrypted=$pwDecrypted, userSafe=$userSafe)"
+    }
 
 
 }

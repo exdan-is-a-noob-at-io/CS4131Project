@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuestionViewModel
 import com.example.cs4131projecteddenchew.ui.database.DatabaseViewModel
 import com.example.cs4131projecteddenchew.ui.home.HomeViewModel
@@ -22,6 +23,7 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import me.xdrop.fuzzywuzzy.FuzzySearch
 import java.io.FileNotFoundException
 import java.io.PrintWriter
 import java.lang.Exception
@@ -183,6 +185,8 @@ object FirebaseUtil {
                 /**Gamification**/
                 addPoints(2, post.posterId!!)
                 addPoints(2, userID)
+                Toast.makeText(context, "Gained 2 EXP!", Toast.LENGTH_LONG).show()
+
 
                 Log.i("TAG", comment.toString())
 
@@ -212,10 +216,12 @@ object FirebaseUtil {
                     questionIDSet.add(postID)
                     /**Gamification**/
                     addPoints(300, userID)
+                    Toast.makeText(context, "Gained 300 EXP!", Toast.LENGTH_LONG).show()
                 }
                 else{
                     /**Gamification**/
                     addPoints(26, userID)
+                    Toast.makeText(context, "Gained 26 EXP!", Toast.LENGTH_LONG).show()
                 }
 
                 database.child("users").child(userID).child("questionsDone").setValue(questionIDSet)
@@ -318,6 +324,7 @@ object FirebaseUtil {
                         post.id?.let { it1 -> questionIDSet.add(it1) }
                         /**Gamification**/
                         addPoints(50, post.posterId!!)
+                        Toast.makeText(context, "Gained 50 EXP!", Toast.LENGTH_LONG).show()
                     }
 
                     database.child("users").child(post.posterId!!).child("questionsPosted").setValue(questionIDSet)
@@ -325,8 +332,10 @@ object FirebaseUtil {
 
                     Toast.makeText(context, "Question Details Updated!", Toast.LENGTH_LONG).show()
                     MakeQuestionViewModel.postId.value = 0
+                    MainActivity.setLoadingVisible(false)
                 }.addOnFailureListener {
                     Log.e("TAG", "write new post fails", it)
+                    MainActivity.setLoadingVisible(false)
                 }
 
 
@@ -334,14 +343,16 @@ object FirebaseUtil {
 
             }.addOnFailureListener {
                 Log.e("TAG", "write new post fails", it)
+                MainActivity.setLoadingVisible(false)
             }
         }
         catch (it:Exception){
             Log.e("TAG", "exception goes brr brr", it)
+            MainActivity.setLoadingVisible(false)
         }
     }
 
-    fun getQuestionsFromUser(user:User?){
+    fun getQuestionsFromUser(user:User?, context: Context?){
         try {
             var postIDs = ArrayList<Long>()
             var posts = ArrayList<Post>()
@@ -364,6 +375,10 @@ object FirebaseUtil {
                     MakeQuestionViewModel.postedQuestionsPosts.value = posts
                     MakeQuestionViewModel.postedQuestions.value = MakeQuestionViewModel.bufferPostedQuestions
                     MakeQuestionViewModel.postedQuestions.value = postIDs
+
+                    if (postIDs.isEmpty()){
+                        Toast.makeText(context, "No Uploaded Questions!", Toast.LENGTH_LONG).show()
+                    }
                 }.addOnFailureListener {
                     Log.e("TAG", "get Questions info fails", it)
                 }
@@ -447,8 +462,6 @@ object FirebaseUtil {
                         tagsArrayList.forEach(){ tag->
                             if (tagsInPost != null) {
                                 tagsInPost.forEach{ tag_ ->
-
-                                    //todo fuzzy wuzzy?
                                     if (tag_.trim().equals(tag.trim(), ignoreCase = true)){
                                         noEqual += 1
                                     }
@@ -462,6 +475,25 @@ object FirebaseUtil {
                         if (noEqual.equals(tagsArrayList.size)){
                             it.getValue(Post::class.java)?.let { it1 -> taggedQuestionsArrayList.add(it1) }
                         }
+                        else {
+                            var qnID = it.child("id").getValue(Long::class.java)
+                            if (tags.trim().equals(qnID?.toString(), ignoreCase = true)){
+                                it.getValue(Post::class.java)?.let { it1 -> taggedQuestionsArrayList.add(it1) }
+                            }
+                            else{
+                                var qnStatement = it.child("questionStatement").getValue(String::class.java)
+                                //todo fuzzy wuzzy
+
+                                if (FuzzySearch.partialRatio(qnStatement, tags.trim()) >= 50){
+                                    it.getValue(Post::class.java)?.let { it1 -> taggedQuestionsArrayList.add(it1) }
+                                }
+                            }
+                        }
+
+
+
+
+
                     }
 
                 }

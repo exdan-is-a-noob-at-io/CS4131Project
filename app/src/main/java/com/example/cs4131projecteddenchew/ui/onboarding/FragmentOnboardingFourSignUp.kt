@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -128,7 +129,12 @@ class FragmentOnboardingFourSignUp : Fragment()  {
 
         //on click
         button.setOnClickListener{
-            //todo this
+            loadingSignUp.setVisibility(View.VISIBLE)
+            activity?.window?.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
+
             name_ = name.text.toString()
             email_ = email.text.toString()
             password_ = password.text.toString()
@@ -160,6 +166,8 @@ class FragmentOnboardingFourSignUp : Fragment()  {
             if (result == "-1" || result == "" || result == "-2"){
             }
             else{
+                loadingSignUp.setVisibility(View.GONE);
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 viewModel.writeNewUser(User(adminViewModel.id.value, name_, email_, password_, false).userSafe)
                 name.setText("")
                 email.setText("")

@@ -12,6 +12,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.model.FirebaseUtil
 import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFour.Fragment.navController
@@ -57,13 +58,14 @@ class RecyclerAdapterQuestion(private val context: Context) :
             imageView = itemView.findViewById(R.id.cardIconImageView)
 
             itemView.setOnClickListener { view ->
+                MainActivity.setLoadingVisible(true)
                 val navController = Navigation.findNavController(itemView)
                 val position = adapterPosition
                 if (position == 0){
                     navController.navigate(R.id.action_navigation_home_to_navigation_make_question)
                 }
                 else{
-                    FirebaseUtil.getQuestionsFromUser(adminViewModel.user_data.value)
+                    FirebaseUtil.getQuestionsFromUser(adminViewModel.user_data.value, context)
                 }
             }
         }

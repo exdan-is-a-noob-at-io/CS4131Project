@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -27,7 +28,9 @@ import com.example.cs4131projecteddenchew.model.User
 import com.example.cs4131projecteddenchew.ui.splash.SplashActivity.Test.viewModel
 import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_onboarding_four_login.*
 import kotlinx.android.synthetic.main.fragment_onboarding_four_sign_up.*
+import kotlinx.android.synthetic.main.fragment_onboarding_four_sign_up.emailInputLayout
 
 class FragmentOnboardingFourLogin : Fragment()  {
 
@@ -93,6 +96,12 @@ class FragmentOnboardingFourLogin : Fragment()  {
                 Toast.makeText(context, "Some fields not filled in", Toast.LENGTH_LONG).show()
             }
             else{
+                loadingLogin.setVisibility(View.VISIBLE)
+                activity?.window?.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
+
                 FirebaseUtil.checkLogin(User.encryptVal(email_), User.encryptVal(password_), context)
             }
 
@@ -102,6 +111,10 @@ class FragmentOnboardingFourLogin : Fragment()  {
                 result ->
 
             if (!result.id.equals("-2")){
+                loadingLogin.setVisibility(View.GONE);
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+
                 viewModel.writeToFile()
                 Toast.makeText(context, "You Are Logged In!!", Toast.LENGTH_LONG).show()
 

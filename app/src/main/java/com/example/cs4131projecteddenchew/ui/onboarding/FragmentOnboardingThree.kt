@@ -22,8 +22,8 @@ class FragmentOnboardingThree : Fragment() {
 
         val viewHolder = ViewHolderOnboarding(cardview)
 
-        viewHolder.text.setText("This is just for testing; frag 3")
-        viewHolder.imageView.setBackgroundResource(R.drawable.venti_image_temp)
+        viewHolder.text.setText("Upload Questions!")
+        viewHolder.imageView.setBackgroundResource(R.drawable.post_image)
 
         return root
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
@@ -8,19 +9,20 @@
     >
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:text="Problem Statement:"
                 android:textSize="20sp" />
@@ -29,25 +31,25 @@
                 android:id="@+id/editTextQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@color/grey_80"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/grey_20"
+                android:ems="10"
+                android:gravity="start|top"
                 android:hint="You can use latex here! \n\nUse $$ eqn $$ for the equation to be in the next line\n\nFor latex, you may also want to use {} for any exponent that is more than 1 digit: for example $9^{10}$ instead of $9^10$"
-                android:textColorHint="@color/grey_50"/>
+                android:inputType="textMultiLine"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/grey_20"
+                android:textColorHint="@color/grey_50" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -64,10 +66,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
                     android:hint="eg: APMO 2019 Q3"
-                    android:textColorHint="@color/grey_50"
-                    android:textColor="@color/grey_20"/>
+                    android:inputType="textPersonName"
+                    android:textColor="@color/grey_20"
+                    android:textColorHint="@color/grey_50" />
 
             </LinearLayout>
 
@@ -87,6 +89,7 @@
                     android:textSize="20sp" />
 
                 <RadioGroup
+                    android:id="@+id/radioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -97,8 +100,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="R1"
-                        android:textSize="20sp"
-                        android:textColor="@color/grey_20"/>
+                        android:textColor="@color/grey_20"
+                        android:textSize="20sp" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRound2"
@@ -106,8 +109,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:text="R2"
-                        android:textSize="20sp"
-                        android:textColor="@color/grey_20" />
+                        android:textColor="@color/grey_20"
+                        android:textSize="20sp" />
                 </RadioGroup>
 
             </LinearLayout>
@@ -132,18 +135,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:popupBackground="@color/grey_80"
                     android:backgroundTint="@color/grey_20"
-                    android:popupElevation="0dp"
-                    />
+                    android:popupBackground="@color/grey_80"
+                    android:popupElevation="0dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -160,18 +162,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="numberDecimal"
                     android:hint="eg: 267"
-                    android:textColorHint="@color/grey_50"
-                    android:textColor="@color/grey_20"/>
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/grey_20"
+                    android:textColorHint="@color/grey_50" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
                 android:text="Explanation:"
                 android:textSize="20sp" />
 
@@ -179,25 +181,25 @@
                 android:id="@+id/editTextExplaination"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@color/grey_80"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/grey_20"
+                android:ems="10"
+                android:gravity="start|top"
                 android:hint="You may use latex here too!"
-                android:textColorHint="@color/grey_50"/>
+                android:inputType="textMultiLine"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/grey_20"
+                android:textColorHint="@color/grey_50" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
                 android:text="Tags:"
                 android:textSize="20sp" />
 
@@ -205,19 +207,19 @@
                 android:id="@+id/editTextTags"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@color/grey_80"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Add your tags, separated by commas. \nExample: tag1, tag2,tag3 , tag 4"
+                android:inputType="textMultiLine"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:layout_marginTop="20dp"
+                android:paddingRight="15dp"
                 android:textColor="@color/grey_20"
-                android:textColorHint="@color/grey_50"
-                android:hint="Add your tags, separated by commas. \nExample: tag1, tag2,tag3 , tag 4"/>
+                android:textColorHint="@color/grey_50" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -239,18 +241,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:popupBackground="@color/grey_80"
                     android:backgroundTint="@color/grey_20"
-                    android:popupElevation="0dp"
-                    />
+                    android:popupBackground="@color/grey_80"
+                    android:popupElevation="0dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -267,24 +268,24 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:enabled="false"
                     android:inputType="textPersonName"
-                    android:textColor="@color/grey_50"
-                    android:enabled="false"/>
+                    android:textColor="@color/grey_50" />
 
             </LinearLayout>
 
             <Button
-                android:layout_marginTop="20dp"
                 android:id="@+id/saveQuestionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="Save" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="50dp"
+                android:layout_weight="1"
                 android:text=""
                 android:textSize="20sp" />
 

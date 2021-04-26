@@ -1,6 +1,10 @@
 package com.example.cs4131projecteddenchew
 
 import android.os.Bundle
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.widget.ProgressBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,6 +15,23 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
+    companion object Test{
+        lateinit var progressBar:ProgressBar
+        lateinit var window_:Window
+
+
+        fun setLoadingVisible(boolean: Boolean){
+            if (boolean){
+                progressBar?.setVisibility(View.VISIBLE)
+                window_.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            } else {
+                progressBar.setVisibility(View.GONE);
+                window_.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        }
+    }
+
     lateinit var appBarConfiguration:AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +50,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        //todo fix the backstack problem in practice
+        progressBar = findViewById<ProgressBar>(R.id.loadingMain)
+        window_ = window
     }
 
     override fun onSupportNavigateUp(): Boolean {

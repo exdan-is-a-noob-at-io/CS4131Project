@@ -32,9 +32,9 @@
                 android:drawableTint="@color/grey_20"
                 android:layout_margin="20dp"
                 android:drawablePadding="10dp"
-                android:hint="Search Here!"
+                android:hint="Search by Tags, Question ID, or Question!"
                 android:textColorHint="@color/grey_50"
-                android:textColor="@color/grey_20"/>
+                android:textColor="@color/grey_20" />
 
 
             <Button
@@ -64,4 +64,5 @@
                 android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

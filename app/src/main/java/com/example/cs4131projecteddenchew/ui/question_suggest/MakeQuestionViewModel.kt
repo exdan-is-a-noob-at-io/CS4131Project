@@ -23,7 +23,7 @@ class MakeQuestionViewModel : ViewModel() {
     }
 
     var targettedLevel: ArrayList<String> = ArrayList<String>(Arrays.asList("Junior", "Senior", "Open", "Others"))
-    var publishingStatus: ArrayList<String> = ArrayList<String>(Arrays.asList("Private", "Public"))
+    var publishingStatus: ArrayList<String> = ArrayList<String>(Arrays.asList("Work In Progress; Private", "Public"))
 
 
 

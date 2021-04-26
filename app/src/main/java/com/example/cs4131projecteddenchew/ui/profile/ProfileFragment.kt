@@ -73,7 +73,8 @@ class ProfileFragment : Fragment() {
         loadImage()
 
         var zero:Long = 0
-        if (ProfileViewModel.exp == zero){
+        var minusOne:Long = -1
+        if (ProfileViewModel.exp == zero || ProfileViewModel.exp == minusOne){
             ProfileViewModel.exp = adminViewModel.user_data.value?.exp!!
         }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.model.FirebaseUtil
 import java.util.*
@@ -56,6 +57,7 @@ class RecyclerAdapterDifficulty(private val context: Context) :
             imageView = itemView.findViewById(R.id.cardIconImageView)
 
             itemView.setOnClickListener { view ->
+                MainActivity.setLoadingVisible(true)
                 val position = adapterPosition
                 Log.i("TAG", "QUestion type is: " + position.toString())
                 FirebaseUtil.getNewQuestion(position.toLong(), context)

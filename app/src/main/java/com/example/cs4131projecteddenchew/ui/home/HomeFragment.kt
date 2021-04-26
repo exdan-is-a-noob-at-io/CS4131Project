@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.model.Post
 import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuestionViewModel
@@ -80,7 +81,9 @@ class HomeFragment : Fragment() {
             else if (result[0] != minusOne){
                 val navController = view?.let { Navigation.findNavController(it) }
                 navController?.navigate(R.id.action_navigation_home_to_navigation_viewQuestions)
+                MainActivity.setLoadingVisible(false)
             } else{
+                MainActivity.setLoadingVisible(false)
                 //Toast.makeText(context, "You have not Posted Anything Yet!", Toast.LENGTH_LONG).show()
             }
         }
@@ -102,9 +105,11 @@ class HomeFragment : Fragment() {
             else if (result.qnType == four){
                 RoundOneAnswerQuestionViewModel.previousPost = RoundOneAnswerQuestionViewModel.selectedPost.value!!
                 navController?.navigate(R.id.action_navigation_home_to_navigation_round_two_answer_question)
+                MainActivity.setLoadingVisible(false)
             } else{
                 RoundOneAnswerQuestionViewModel.previousPost = RoundOneAnswerQuestionViewModel.selectedPost.value!!
                 navController?.navigate(R.id.action_navigation_home_to_navigation_round_one_answer_question)
+                MainActivity.setLoadingVisible(false)
             }
 
 
@@ -125,6 +130,7 @@ class HomeFragment : Fragment() {
                 DatabaseViewModel.callInSignal.value = 0
                 DatabaseViewModel.tagedQuestions.value = DatabaseViewModel.zeroPostedQuestions
                 navController?.navigate(R.id.action_navigation_home_to_navigation_database)
+                MainActivity.setLoadingVisible(false)
                 Log.i("TAG", result.toString())
             }
 

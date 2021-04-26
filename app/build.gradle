@@ -89,4 +89,7 @@ dependencies {
 
     // circular imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //fuzzy wuzzy
+    implementation 'me.xdrop:fuzzywuzzy:1.3.1'
 }

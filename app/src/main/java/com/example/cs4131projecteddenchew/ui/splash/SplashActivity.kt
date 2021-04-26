@@ -3,6 +3,7 @@ package com.example.cs4131projecteddenchew.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -53,7 +54,7 @@ class SplashActivity : AppCompatActivity() {
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }, 0)
             }
-            
+
         }
 
         adminViewModel.user_data.observe(this, resultObserver)
@@ -94,5 +95,15 @@ class SplashActivity : AppCompatActivity() {
             output.close()
             return -1
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        window?.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 }

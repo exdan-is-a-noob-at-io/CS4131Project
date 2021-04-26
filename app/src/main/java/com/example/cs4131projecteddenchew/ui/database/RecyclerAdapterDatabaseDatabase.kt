@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuestionViewModel
 import katex.hourglass.`in`.mathlib.MathView
@@ -23,12 +24,18 @@ class RecyclerAdapterDatabaseDatabase(private val context: Context) :
 
 
         fun loadData(){
+            MainActivity.setLoadingVisible(false)
             names.removeAll(names)
             descriptions.removeAll(descriptions)
             DatabaseViewModel.tagedQuestions.value?.forEach { post->
                 names.add(post?.questionStatement!!)
-                post?.tags?.let { getTags(it) }?.let { descriptions.add(it) }
-                //Log.i("TAG", post.toString())
+                if (post.tags == null){
+                    descriptions.add("")
+                } else{
+                    post.tags?.let { getTags(it) }?.let { descriptions.add(it) }
+                }
+
+                Log.i("TAG", descriptions.toString())
             }
 
             Log.i("TAG", names.toString())
@@ -42,6 +49,11 @@ class RecyclerAdapterDatabaseDatabase(private val context: Context) :
                     out += ", "
                 }
                 out += tags[i]
+            }
+            Log.i("TAG", out)
+
+            if (out == ""){
+                return " "
             }
             return out
         }

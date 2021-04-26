@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.model.Comment
 import com.example.cs4131projecteddenchew.model.FirebaseUtil
@@ -104,6 +105,7 @@ class RoundTwoAnswerQuestionFragment : Fragment() {
         }
 
         discussQuestionButton.setOnClickListener {
+            MainActivity.setLoadingVisible(true)
             FirebaseUtil.getComments(RoundOneAnswerQuestionViewModel.previousPost)
         }
 
@@ -133,12 +135,14 @@ class RoundTwoAnswerQuestionFragment : Fragment() {
                 result ->
 
             if (result.size == 0){
+                MainActivity.setLoadingVisible(false)
                 findNavController().navigate(R.id.action_navigation_round_two_answer_question_to_navigation_comments)
             }
             else if (result[0].comment.equals("")){
 
             }
             else{
+                MainActivity.setLoadingVisible(false)
                 findNavController().navigate(R.id.action_navigation_round_two_answer_question_to_navigation_comments)
             }
 
@@ -168,7 +172,7 @@ class RoundTwoAnswerQuestionFragment : Fragment() {
 
         statementMathView.setDisplayText(post?.questionStatement)
         explainationMathView.setDisplayText("")
-        sourceTextViewRoundTwo.setText("Source: " + post.source)
+        sourceTextViewRoundTwo.setText("Source: " + post.source + "\n" + "Question ID: " + post.id)
 
         RoundOneAnswerQuestionViewModel.selectedPost.value = RoundOneAnswerQuestionViewModel.defaultPost
     }

@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
 import com.example.cs4131projecteddenchew.model.FirebaseUtil
 import com.example.cs4131projecteddenchew.model.Post
@@ -57,6 +58,7 @@ class DatabaseFragment : Fragment(){
 
         searchButton.setOnClickListener {
             FirebaseUtil.getQuestionFromTags(editTextTags.text.toString())
+            MainActivity.setLoadingVisible(true)
         }
 
 

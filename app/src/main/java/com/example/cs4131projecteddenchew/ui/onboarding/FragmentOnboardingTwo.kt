@@ -20,8 +20,8 @@ class FragmentOnboardingTwo : Fragment() {
 
         val viewHolder = ViewHolderOnboarding(cardview)
 
-        viewHolder.text.setText("This is just for testing; frag 2")
-        viewHolder.imageView.setBackgroundResource(R.drawable.venti_image_temp)
+        viewHolder.text.setText("Solve Questions!")
+        viewHolder.imageView.setBackgroundResource(R.drawable.solve_math_problems)
 
         return root
     }

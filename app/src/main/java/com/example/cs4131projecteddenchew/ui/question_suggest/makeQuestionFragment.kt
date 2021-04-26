@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.view.get
@@ -78,10 +79,12 @@ class makeQuestionFragment : Fragment() {
 
         val resultObserver = Observer<Long> {
             result ->
+            MainActivity.setLoadingVisible(false)
             Log.i("TAG", "Observer calling is fucking you over")
             var zero:Long = 0
             if (result.equals(zero)){}
             else if (result > 0){
+                MainActivity.setLoadingVisible(true)
                 qnIDEditText.setText(result.toString())
                 var questionStatement:String = RegexUtil.addBackSlash(editTextQuestion.text.toString())
 
@@ -119,6 +122,8 @@ class makeQuestionFragment : Fragment() {
         MakeQuestionViewModel.postId.observe(viewLifecycleOwner, resultObserver)
 
         saveQuestionButton.setOnClickListener {
+            MainActivity.setLoadingVisible(true)
+
             if (qnIDEditText.text.toString().equals("-") || qnIDEditText.text.toString().isEmpty()){
                 MakeQuestionViewModel.postId.value = -1
                 FirebaseUtil.getPostID()
@@ -211,12 +216,12 @@ class makeQuestionFragment : Fragment() {
             editTextQuestion.setText(currPost?.questionStatement)
             sourceEditText.setText(currPost?.source)
             if (currPost?.qnType?.equals(four) == true){
-                radioButtonRound2.isSelected = true
+                radioGroup.check(R.id.radioButtonRound2)
                 spinnerTargettedLevel.isEnabled = false
                 answerEditText.isEnabled = false
                 spinnerTargettedLevel.setAlpha(0.4f)
             } else{
-                radioButtonRound1.isSelected = true
+                radioGroup.check(R.id.radioButtonRound1)
                 spinnerTargettedLevel.isEnabled = true
                 answerEditText.isEnabled = true
                 spinnerTargettedLevel.setAlpha(1.0f)
@@ -228,6 +233,12 @@ class makeQuestionFragment : Fragment() {
             editTextExplaination.setText(currPost?.explaination)
             editTextTags.setText(currPost?.tags?.let { getTags(it) })
             qnIDEditText.setText(currPost?.id.toString())
+
+            if (currPost?.published == true){
+                spinnerPublishingStatus.setSelection(1)
+            } else{
+                spinnerPublishingStatus.setSelection(0)
+            }
             MakeQuestionViewModel.selectedPost.value = MakeQuestionViewModel.defaultPost
         }
     }

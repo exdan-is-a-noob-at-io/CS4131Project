@@ -5,14 +5,22 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.example.cs4131projecteddenchew.MainActivity
 import com.example.cs4131projecteddenchew.R
+import com.example.cs4131projecteddenchew.model.FirebaseUtil
 import com.example.cs4131projecteddenchew.model.GamificationUtil
+import com.example.cs4131projecteddenchew.model.Post
 import com.example.cs4131projecteddenchew.model.User
+import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuestionViewModel
 import com.example.cs4131projecteddenchew.ui.onboarding.OnboardingActivity
 import com.example.cs4131projecteddenchew.ui.splash.SplashActivity
 import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
@@ -56,6 +64,22 @@ class ProfileFragment : Fragment() {
             startActivityForResult(Intent(activity, OnboardingActivity::class.java).also {
                 it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }, 0)
+        }
+
+
+        val resultObserver = Observer<Int>{
+            result ->
+            if (result == 1){
+                findNavController().navigate(R.id.action_navigation_profile_to_navigation_leaderboard)
+                LeaderboardViewModel.updateStatus.value = 0
+            }
+
+
+        }
+        LeaderboardViewModel.updateStatus.observe(viewLifecycleOwner, resultObserver)
+
+        viewLeaderboardButton.setOnClickListener {
+            FirebaseUtil.getLeaderboard()
         }
     }
 

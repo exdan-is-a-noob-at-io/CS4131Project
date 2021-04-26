@@ -11,6 +11,7 @@ import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuest
 import com.example.cs4131projecteddenchew.ui.database.DatabaseViewModel
 import com.example.cs4131projecteddenchew.ui.home.HomeViewModel
 import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFourLogin
+import com.example.cs4131projecteddenchew.ui.profile.LeaderboardViewModel
 import com.example.cs4131projecteddenchew.ui.profile.ProfileViewModel
 import com.example.cs4131projecteddenchew.ui.question_suggest.MakeQuestionViewModel
 import com.example.cs4131projecteddenchew.ui.viewmodel.adminViewModel
@@ -488,11 +489,6 @@ object FirebaseUtil {
                                 }
                             }
                         }
-
-
-
-
-
                     }
 
                 }
@@ -532,5 +528,26 @@ object FirebaseUtil {
         Log.i("TAG", out.toString())
 
         return out
+    }
+
+
+    fun getLeaderboard(){
+        try {
+            val database = FirebaseUtil.database
+            LeaderboardViewModel.leaderboard.removeAll(LeaderboardViewModel.leaderboard)
+            database.child("users").get().addOnSuccessListener {
+                it.children.forEach{ user->
+                    user.getValue(User::class.java)?.let { it1 -> LeaderboardViewModel.leaderboard.add(it1) }
+                }
+                LeaderboardViewModel.updateStatus.value = 0
+                LeaderboardViewModel.updateStatus.value = 1
+
+            }.addOnFailureListener {
+                Log.e("TAG", "write new post fails", it)
+            }
+        }
+        catch (it:Exception){
+            Log.e("TAG", "exception goes brr brr", it)
+        }
     }
 }

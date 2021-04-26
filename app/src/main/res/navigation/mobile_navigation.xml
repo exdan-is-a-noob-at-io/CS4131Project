@@ -18,20 +18,40 @@
             app:destination="@id/navigation_viewQuestions" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_round_one_answer_question"
-            app:destination="@id/navigation_round_one_answer_question" />
+            app:destination="@id/navigation_round_one_answer_question"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/push_left_in"
+            app:popExitAnim="@anim/push_left_out" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_round_two_answer_question"
-            app:destination="@id/navigation_round_two_answer_question" />
+            app:destination="@id/navigation_round_two_answer_question"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/push_left_in"
+            app:popExitAnim="@anim/push_left_out" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_database"
-            app:destination="@id/navigation_database" />
+            app:destination="@id/navigation_database"
+            app:enterAnim="@anim/slide_down"
+            app:exitAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_down"
+            app:popExitAnim="@anim/slide_up" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.cs4131projecteddenchew.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_leaderboard"
+            app:destination="@id/navigation_leaderboard"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_make_question"
@@ -71,7 +91,11 @@
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_navigation_round_one_answer_question_to_navigation_comments"
-            app:destination="@id/navigation_comments" />
+            app:destination="@id/navigation_comments"
+            app:enterAnim="@anim/slide_down"
+            app:exitAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_down"
+            app:popExitAnim="@anim/slide_up" />
     </fragment>
 
     <fragment
@@ -81,7 +105,11 @@
         tools:layout="@layout/fragment_round_two_answer_question" >
         <action
             android:id="@+id/action_navigation_round_two_answer_question_to_navigation_comments"
-            app:destination="@id/navigation_comments" />
+            app:destination="@id/navigation_comments"
+            app:enterAnim="@anim/slide_down"
+            app:exitAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_down"
+            app:popExitAnim="@anim/slide_up" />
     </fragment>
 
     <fragment
@@ -107,9 +135,31 @@
             app:destination="@id/navigation_home" />
         <action
             android:id="@+id/action_navigation_database_to_navigation_round_one_answer_question"
-            app:destination="@id/navigation_round_one_answer_question" />
+            app:destination="@id/navigation_round_one_answer_question"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/push_left_in"
+            app:popExitAnim="@anim/push_left_out" />
         <action
             android:id="@+id/action_navigation_database_to_navigation_round_two_answer_question"
-            app:destination="@id/navigation_round_two_answer_question" />
+            app:destination="@id/navigation_round_two_answer_question"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/push_left_in"
+            app:popExitAnim="@anim/push_left_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_leaderboard"
+        android:name="com.example.cs4131projecteddenchew.ui.profile.LeaderboardFragment"
+        android:label="Leaderboard"
+        tools:layout="@layout/leaderboard_fragment" >
+        <action
+            android:id="@+id/action_navigation_leaderboard_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
 </navigation>

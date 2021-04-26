@@ -2,7 +2,7 @@ package com.example.cs4131projecteddenchew.model
 
 import android.util.Log
 
-class User {
+class User : Comparable<User>{
     var id: String? = null
     var profileSrc: String? = null
     var name: String? = null
@@ -157,6 +157,10 @@ class User {
 
     override fun toString(): String {
         return "User(id=$id, profileSrc=$profileSrc, name=$name, bio=$bio, exp=$exp, email=$email, pw=$pw, friends=$friends, questionsDone=$questionsDone, questionsPosted=$questionsPosted, nameDecrypted=$nameDecrypted, emailDecrypted=$emailDecrypted, pwDecrypted=$pwDecrypted, userSafe=$userSafe)"
+    }
+
+    override fun compareTo(other: User): Int {
+        return -other.exp?.let { exp?.compareTo(it) }!!
     }
 
 

@@ -482,7 +482,6 @@ object FirebaseUtil {
                             }
                             else{
                                 var qnStatement = it.child("questionStatement").getValue(String::class.java)
-                                //todo fuzzy wuzzy
 
                                 if (FuzzySearch.partialRatio(qnStatement, tags.trim()) >= 50){
                                     it.getValue(Post::class.java)?.let { it1 -> taggedQuestionsArrayList.add(it1) }

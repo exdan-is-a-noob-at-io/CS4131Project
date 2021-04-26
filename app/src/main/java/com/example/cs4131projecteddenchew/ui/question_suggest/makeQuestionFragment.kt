@@ -153,7 +153,6 @@ class makeQuestionFragment : Fragment() {
             }
         }
 
-        /* todo use some snackbar to tell the user when the post upload works */
     }
 
     public fun onRadioButtonClicked(view: View) {
@@ -198,7 +197,6 @@ class makeQuestionFragment : Fragment() {
     }
 
 
-    //todo make the radio buttons work
     fun onStartResume(){
         Log.i("TAG", "onStartResume Called!")
         var zero:Long = 0

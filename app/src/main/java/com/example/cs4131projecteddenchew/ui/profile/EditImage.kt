@@ -23,7 +23,6 @@ class EditImage(val context: Context, val activity: Activity) {
                         if (report.areAllPermissionsGranted()) {
                             showImagePickerOptions()
                         } else {
-                            // TODO - handle permission denied case
                             checkPermission(
                                     Manifest.permission.CAMERA,
                                     ImageUtil.CAMERA_PERMISSION_CODE

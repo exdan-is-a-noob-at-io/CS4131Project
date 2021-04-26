@@ -32,8 +32,6 @@ class FragmentOnboardingThree : Fragment() {
         super.onStart()
         val activity:OnboardingActivity = activity as OnboardingActivity
         activity.showTabLayout()
-
-        //todo fragment 3 logs me in
     }
 
     override fun onResume() {

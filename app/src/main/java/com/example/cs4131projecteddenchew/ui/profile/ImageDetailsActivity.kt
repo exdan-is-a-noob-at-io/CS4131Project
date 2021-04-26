@@ -21,7 +21,7 @@ import java.io.PrintWriter
 import java.util.*
 
 
-//todo fix this
+
 class ImageDetailsActivity : AppCompatActivity() {
     private var REQUEST_IMAGE = 2169
     var imageView: ImageView? = null

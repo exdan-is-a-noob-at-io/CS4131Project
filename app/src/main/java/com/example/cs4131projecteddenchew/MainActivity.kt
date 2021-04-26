@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.navigation_home, R.id.navigation_profile))
 
-        //todo so this is where the action bar is
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 

@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.cs4131projecteddenchew.model.FirebaseUtil
 
 class MainActivity : AppCompatActivity() {
     companion object Test{
@@ -58,5 +59,20 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        FirebaseUtil.getImage()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseUtil.getImage()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        FirebaseUtil.getImage()
     }
 }

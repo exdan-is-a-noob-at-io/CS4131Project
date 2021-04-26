@@ -3,6 +3,7 @@ package com.example.cs4131projecteddenchew.ui.profile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import java.io.File
 
 class ProfileViewModel : ViewModel() {
 
@@ -13,5 +14,6 @@ class ProfileViewModel : ViewModel() {
 
     companion object Test{
         var exp:Long = 0
+        var image:File? = null
     }
 }

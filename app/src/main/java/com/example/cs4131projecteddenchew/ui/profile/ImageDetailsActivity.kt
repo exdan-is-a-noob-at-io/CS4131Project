@@ -96,9 +96,6 @@ class ImageDetailsActivity : AppCompatActivity() {
                     // You can update this bitmap to your server
                     MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
 
-                    //save uri to internal storage
-                    writeData(uri.toString())
-
                     // loading profile image from local cache
                     loadImage()
 
@@ -110,26 +107,13 @@ class ImageDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeData(s: String) {
-        val output = PrintWriter(imageInfoFile)
-        output.println(s)
-        output.close()
-        println(s)
-    }
+
 
     private fun readData(): String {
-        if (!imageInfoFile!!.exists()) {
-            return ""
+        if (ProfileViewModel.image != null){
+            return ProfileViewModel.image?.toURI().toString()
         }
-        val scanner = Scanner(imageInfoFile)
-        val string = StringBuilder(scanner.nextLine())
-
-        while (scanner.hasNextLine())
-            string.append("\n" + scanner.nextLine())
-
-
-        scanner.close()
-        return string.toString()
+        return ""
     }
 
     private fun loadImage() {

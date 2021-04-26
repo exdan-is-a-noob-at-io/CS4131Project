@@ -60,6 +60,7 @@ class ProfileFragment : Fragment() {
             adminViewModel.id.value = (-2).toString()
 
             ProfileViewModel.exp = 0
+            ProfileViewModel.image = null
 
             startActivityForResult(Intent(activity, OnboardingActivity::class.java).also {
                 it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -127,22 +128,15 @@ class ProfileFragment : Fragment() {
     }
 
     private fun readData(): String {
-        if (!imageInfoFile!!.exists()) {
-            return ""
+        if (ProfileViewModel.image != null){
+            return ProfileViewModel.image?.toURI().toString()
         }
-        val scanner = Scanner(imageInfoFile)
-        val string = StringBuilder(scanner.nextLine())
-
-        while (scanner.hasNextLine())
-            string.append("\n" + scanner.nextLine())
-
-
-        scanner.close()
-        return string.toString()
+        return ""
     }
 
     private fun loadImage() {
         val string: String = readData()
+
         if (string.isNotEmpty()) {
             imageView!!.setImageURI(Uri.parse(readData()))
         } else {

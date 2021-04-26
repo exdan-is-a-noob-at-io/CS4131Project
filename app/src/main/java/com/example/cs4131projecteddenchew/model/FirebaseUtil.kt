@@ -25,6 +25,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import me.xdrop.fuzzywuzzy.FuzzySearch
+import java.io.File
 import java.io.FileNotFoundException
 import java.io.PrintWriter
 import java.lang.Exception
@@ -52,16 +53,32 @@ object FirebaseUtil {
 
     fun uploadImage(photoUri: Uri) {
         val storageRef = storage.reference
-        val imageRef = storageRef.child("images/${adminViewModel.user_data.value?.id}.jpg")
+        Log.i("TAG", "images/profile_image/${adminViewModel.user_data.value?.id}.jpg")
+        val imageRef = storageRef.child("images/profile_image/${adminViewModel.user_data.value?.id}.jpg")
 
         val uploadTask = imageRef.putFile(photoUri)
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener {
+            Log.i("TAG", it.toString())
             // Handle unsuccessful uploads
             // nothing to be implemented
         }.addOnSuccessListener {
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
+        }
+    }
+
+    fun getImage(){
+        val storageRef = storage.reference
+        val imageRef = storageRef.child("images/profile_image/${adminViewModel.user_data.value?.id}.jpg")
+
+        val localFile = File.createTempFile("images", "jpg")
+
+        imageRef.getFile(localFile).addOnSuccessListener {
+            // Local temp file has been created
+            ProfileViewModel.image = localFile
+        }.addOnFailureListener {
+            // Handle any errors
         }
     }
 

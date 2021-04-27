@@ -130,6 +130,11 @@ class FragmentOnboardingFourSignUp : Fragment()  {
             }
         }
 
+        fun changeViewDisable(){
+            loadingSignUp.setVisibility(View.GONE);
+            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+
         //on click
         button.setOnClickListener{
             loadingSignUp.setVisibility(View.VISIBLE)
@@ -145,23 +150,23 @@ class FragmentOnboardingFourSignUp : Fragment()  {
             //todo change this to snack bar?
             if (name_.isEmpty() || email_.isEmpty() || password_.isEmpty() || passwordAgain_.isEmpty()){
                 Toast.makeText(context, "Some fields not filled in", Toast.LENGTH_LONG).show()
-                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                changeViewDisable()
             } else if (name_.length < 3){
                 Toast.makeText(context, "Name must be at least 3 characters long!", Toast.LENGTH_LONG).show()
-                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                changeViewDisable()
             } else if (!RegexUtil.checkName(name_)){
                 Toast.makeText(context, "Name may only consist of letters, numbers and underscores", Toast.LENGTH_LONG).show()
-                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                changeViewDisable()
             } else if (!RegexUtil.checkEmail(email_)){
                 Toast.makeText(context, "Invalid Email", Toast.LENGTH_LONG).show()
-                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                changeViewDisable()
             }
             else if (passwordAgain_ == password_){
                 FirebaseUtil.checkEmail(User.encryptVal(name_), User.encryptVal(email_), context, requireActivity())
             }
             else{
                 Toast.makeText(context, "Passwords do not match", Toast.LENGTH_LONG).show()
-                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                changeViewDisable()
             }
 
         }

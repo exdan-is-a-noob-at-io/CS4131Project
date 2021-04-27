@@ -4,10 +4,15 @@ import android.Manifest
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.text.Html
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
@@ -216,7 +221,18 @@ class ImagePickerActivity : AppCompatActivity() {
         fun showImagePickerOptions(context: Context, listener: PickerOptionListener) {
             // setup the alert builder
             val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-            builder.setTitle(context.getString(R.string.lbl_set_profile_photo))
+
+            var titleText = context.getString(R.string.lbl_set_profile_photo)
+            val foregroundColorSpan = ForegroundColorSpan(Color.BLACK)
+            val ssBuilder = SpannableStringBuilder(titleText)
+            // Apply the text color span
+            ssBuilder.setSpan(
+                    foregroundColorSpan,
+                    0,
+                    titleText.length,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            builder.setTitle(titleText)
 
             // add a list
             val animals = arrayOf(

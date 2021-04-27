@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
@@ -48,6 +49,10 @@ class FragmentOnboardingFourSignUp : Fragment()  {
     var email_:String = ""
     var password_: String = ""
     var passwordAgain_:String = ""
+
+    companion object Test{
+        lateinit var loadingSignUp_: ProgressBar
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -125,8 +130,6 @@ class FragmentOnboardingFourSignUp : Fragment()  {
             }
         }
 
-
-
         //on click
         button.setOnClickListener{
             loadingSignUp.setVisibility(View.VISIBLE)
@@ -142,18 +145,23 @@ class FragmentOnboardingFourSignUp : Fragment()  {
             //todo change this to snack bar?
             if (name_.isEmpty() || email_.isEmpty() || password_.isEmpty() || passwordAgain_.isEmpty()){
                 Toast.makeText(context, "Some fields not filled in", Toast.LENGTH_LONG).show()
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             } else if (name_.length < 3){
                 Toast.makeText(context, "Name must be at least 3 characters long!", Toast.LENGTH_LONG).show()
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             } else if (!RegexUtil.checkName(name_)){
                 Toast.makeText(context, "Name may only consist of letters, numbers and underscores", Toast.LENGTH_LONG).show()
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             } else if (!RegexUtil.checkEmail(email_)){
                 Toast.makeText(context, "Invalid Email", Toast.LENGTH_LONG).show()
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
             else if (passwordAgain_ == password_){
-                FirebaseUtil.checkEmail(User.encryptVal(name_), User.encryptVal(email_), context)
+                FirebaseUtil.checkEmail(User.encryptVal(name_), User.encryptVal(email_), context, requireActivity())
             }
             else{
                 Toast.makeText(context, "Passwords do not match", Toast.LENGTH_LONG).show()
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
         }
@@ -181,5 +189,10 @@ class FragmentOnboardingFourSignUp : Fragment()  {
         adminViewModel.id.observe(viewLifecycleOwner, resultObserver)
 
         return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadingSignUp_ = loadingSignUp
     }
 }

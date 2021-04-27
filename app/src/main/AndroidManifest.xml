@@ -17,7 +17,8 @@
         android:theme="@style/Theme.CS4131ProjectEddenChew">
         <activity android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.CS4131ProjectEddenChew.NoActionBar">
+            android:theme="@style/Theme.CS4131ProjectEddenChew.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,7 +29,8 @@
             android:theme="@style/Theme.CS4131ProjectEddenChew.NoActionBar"/>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -45,7 +47,8 @@
             android:name=".ui.profile.ImageDetailsActivity"
             android:label="@string/title_activity_profile_picture"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.CS4131ProjectEddenChew.NoActionBar">
+            android:theme="@style/Theme.CS4131ProjectEddenChew.NoActionBar"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -54,7 +57,8 @@
             android:name=".ui.profile.ImagePickerActivity"
             android:label="@string/title_activity_profile_picture"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.CS4131ProjectEddenChew.NoActionBar">
+            android:theme="@style/Theme.CS4131ProjectEddenChew.NoActionBar"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

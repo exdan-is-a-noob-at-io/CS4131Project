@@ -1,9 +1,11 @@
 package com.example.cs4131projecteddenchew.model
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.cs4131projecteddenchew.MainActivity
@@ -11,6 +13,7 @@ import com.example.cs4131projecteddenchew.ui.answer_question.RoundOneAnswerQuest
 import com.example.cs4131projecteddenchew.ui.database.DatabaseViewModel
 import com.example.cs4131projecteddenchew.ui.home.HomeViewModel
 import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFourLogin
+import com.example.cs4131projecteddenchew.ui.onboarding.FragmentOnboardingFourSignUp
 import com.example.cs4131projecteddenchew.ui.profile.LeaderboardViewModel
 import com.example.cs4131projecteddenchew.ui.profile.ProfileViewModel
 import com.example.cs4131projecteddenchew.ui.question_suggest.MakeQuestionViewModel
@@ -24,6 +27,7 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.fragment_onboarding_four_login.*
 import me.xdrop.fuzzywuzzy.FuzzySearch
 import java.io.File
 import java.io.FileNotFoundException
@@ -85,7 +89,7 @@ object FirebaseUtil {
 
 
     /**login**/
-    fun checkEmail(nameEncrypted:String?, emailEncrypted:String?, context: Context?){
+    fun checkEmail(nameEncrypted:String?, emailEncrypted:String?, context: Context?, activity: Activity){
         database.child("users").get().addOnSuccessListener {
             var unique = true
             it.children.forEach{
@@ -94,10 +98,12 @@ object FirebaseUtil {
                 }
             }
             if (unique){
-                checkName(nameEncrypted, context)
+                checkName(nameEncrypted, context, activity)
             }
             else{
                 Toast.makeText(context, "Email Already In Use!", Toast.LENGTH_LONG).show()
+                FragmentOnboardingFourSignUp.loadingSignUp_.setVisibility(View.GONE);
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
         }.addOnFailureListener{
@@ -105,7 +111,7 @@ object FirebaseUtil {
         }
     }
 
-    fun checkName(nameEncrypted:String?, context: Context?){
+    fun checkName(nameEncrypted:String?, context: Context?, activity: Activity){
         database.child("users").get().addOnSuccessListener {
             var unique = true
             it.children.forEach{
@@ -118,6 +124,8 @@ object FirebaseUtil {
             }
             else{
                 Toast.makeText(context, "Name Already In Use!", Toast.LENGTH_LONG).show()
+                FragmentOnboardingFourSignUp.loadingSignUp_.setVisibility(View.GONE);
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
         }.addOnFailureListener{
@@ -125,7 +133,7 @@ object FirebaseUtil {
         }
     }
 
-    fun checkLogin(emailEncrypted:String?, pwEncrypted:String?, context: Context?){
+    fun checkLogin(emailEncrypted:String?, pwEncrypted:String?, context: Context?, activity: Activity){
         database.child("users").get().addOnSuccessListener {
             var correct = false
             it.children.forEach{
@@ -140,6 +148,8 @@ object FirebaseUtil {
             }
             else{
                 Toast.makeText(context, "Details Incorrect!", Toast.LENGTH_LONG).show()
+                FragmentOnboardingFourLogin.loadingLogin_.setVisibility(View.GONE);
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
         }.addOnFailureListener{

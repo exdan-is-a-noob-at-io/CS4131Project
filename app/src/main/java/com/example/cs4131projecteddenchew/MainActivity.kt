@@ -1,5 +1,6 @@
 package com.example.cs4131projecteddenchew
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -7,6 +8,7 @@ import android.view.WindowManager
 import android.widget.ProgressBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +16,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cs4131projecteddenchew.model.FirebaseUtil
+import kotlinx.android.synthetic.main.activity_image_details.*
 
 class MainActivity : AppCompatActivity() {
     companion object Test{
@@ -64,6 +67,9 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         FirebaseUtil.getImage()
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        actionBar?.setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.main_green_40)))
     }
 
     override fun onResume() {

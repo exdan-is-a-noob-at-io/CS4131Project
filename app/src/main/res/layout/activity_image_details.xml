@@ -10,8 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.CS4131ProjectEddenChew.AppBarOverlay">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -19,10 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/Theme.CS4131ProjectEddenChew.PopupOverlay"
             app:layout_scrollFlags="scroll|enterAlways"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             app:menu="@menu/image_bar_menu"
-            android:theme="@style/Theme.CS4131ProjectEddenChew.DarkActionBar.BackButton"
             />
 
     </com.google.android.material.appbar.AppBarLayout>

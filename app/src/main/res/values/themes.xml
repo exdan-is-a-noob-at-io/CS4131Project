@@ -16,6 +16,15 @@
         <item name="android:windowBackground">@color/main_blue_90</item>
         <item name="android:textColor">@color/grey_20</item>
         <item name="android:textColorHint">@color/grey_20</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+    <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Theme.CS4131ProjectEddenChew">
+        <item name="android:titleTextStyle">@style/myTheme.ActionBar.Text</item>
+    </style>
+
+    <style name="myTheme.ActionBar.Text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/main_blue_90</item>
     </style>
 
     <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">

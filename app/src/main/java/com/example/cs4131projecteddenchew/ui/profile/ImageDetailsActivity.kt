@@ -37,7 +37,7 @@ class ImageDetailsActivity : AppCompatActivity() {
         toolbar.title = title
         toolbar.inflateMenu(R.menu.image_bar_menu)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setTitleTextColor(Color.WHITE)
+        toolbar.setTitleTextColor(getResources().getColor(R.color.main_blue_90))
 
 
 
@@ -93,13 +93,12 @@ class ImageDetailsActivity : AppCompatActivity() {
                     if (uri != null) {
                         FirebaseUtil.uploadImage(uri)
                     }
+                    ProfileViewModel.image = File(uri?.path)
                     // You can update this bitmap to your server
                     MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
 
                     // loading profile image from local cache
                     loadImage()
-
-                    //todo fix this one loadProfile(uri.toString())
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

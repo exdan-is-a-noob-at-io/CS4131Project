@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
@@ -42,6 +43,9 @@ class FragmentOnboardingFourLogin : Fragment()  {
     var email_:String = ""
     var password_:String = ""
 
+    companion object Test{
+        lateinit var loadingLogin_:ProgressBar
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -102,7 +106,7 @@ class FragmentOnboardingFourLogin : Fragment()  {
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
 
-                FirebaseUtil.checkLogin(User.encryptVal(email_), User.encryptVal(password_), context)
+                FirebaseUtil.checkLogin(User.encryptVal(email_), User.encryptVal(password_), context, requireActivity())
             }
 
         }
@@ -131,16 +135,14 @@ class FragmentOnboardingFourLogin : Fragment()  {
 
         return root
     }
-    /**
+
     override fun onStart() {
         super.onStart()
-        val activity:OnboardingActivity = activity as OnboardingActivity
-        activity.removeTabLayout()
+        loadingLogin_ = loadingLogin
     }
 
     override fun onResume() {
         super.onResume()
-        val activity:OnboardingActivity = activity as OnboardingActivity
-        activity.removeTabLayout()
-    }**/
+        loadingLogin_ = loadingLogin
+    }
 }

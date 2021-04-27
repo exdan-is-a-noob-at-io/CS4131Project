@@ -45,11 +45,16 @@ class SplashActivity : AppCompatActivity() {
                 Log.i("TAG", "onboarding via splash " + result.id)
             }
             else if (result.id.equals("-2")){
-                startActivity(Intent(applicationContext, OnboardingActivity::class.java))
+                Handler().postDelayed({
+                    val main = Intent(applicationContext, OnboardingActivity::class.java)
+                    startActivity(main)
+                    finish()
+                }, SPLASH_TIME_OUT.toLong())
             }
             else{
                 //viewModel.writeToFile(""); //resets account details storage
                 Log.i("TAG", "Starting Activity with id " + result.id)
+
                 startActivityForResult(Intent(this, MainActivity::class.java).also {
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }, 0)

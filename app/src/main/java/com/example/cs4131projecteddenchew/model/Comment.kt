@@ -6,39 +6,20 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @IgnoreExtraProperties
-class Comment {
-    var id: Long? = null
-    var comment: String? = null
-    var commenter:String? = null
-    var timeString: String? = null
-    var time: Date? = null
+class Comment(var id: Long? = null, var comment: String? = null, var commenter: String? = null, var time: Date? = null) {
+    var timeString: String?
 
-    constructor(id: Long?, comment: String?, commenter:String?, time: Date?) {
-        this.id = id
-        this.comment = comment
-        this.time = time
-        this.commenter = commenter
-
+    companion object {
         val df: DateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+    }
+
+    init {
         this.timeString = df.format(time)
     }
 
-    constructor(id_: Long?, comment_: String?, commenter:String?, timeString_: String) {
-        this.id = id_
-        this.comment = comment_
-        this.timeString = timeString_
-        this.commenter = commenter
-
-        val df: DateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
-
-        this.time = df.parse(timeString_)
+    constructor(id: Long?, comment: String?, commenter: String?, timeString: String?): this(id, comment, commenter, df.parse(timeString)) {
+        this.timeString = timeString
     }
 
-    constructor()
-
-    override fun toString(): String {
-        return "Comment(id=$id, comment=$comment, commenter=$commenter, timeString=$timeString, time=$time)"
-    }
-
-
+    override fun toString() = "Comment(id=$id, comment=$comment, commenter=$commenter, timeString=$timeString, time=$time)"
 }
